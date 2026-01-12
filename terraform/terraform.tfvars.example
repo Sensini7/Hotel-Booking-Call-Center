@@ -10,12 +10,14 @@ instance_phone_number_id = "arn:aws:connect:us-east-1:ACCOUNT_ID:instance/INSTAN
 routing_profile_description = "Default routing profile for Employee Booking service"
 
 # User Configuration
-user_first_name  = "Peleke"
-user_last_name   = "Ngaih"
-user_email       = "pelekengaih@gmail.com"
+user_username     = "pelekengaih"  # Login username (must follow email format or contain only: a-z, A-Z, 0-9, _, -, +, .)
+user_first_name   = "Peleke"
+user_last_name    = "Ngaih"
+user_email        = "pelekengaih@gmail.com"
 user_phone_number = "+1234567890"  # Optional
-user_password    = "ChangeMe123!"   # Change this!
-user_auto_accept = false
+user_phone_country_code = "US"     # Country code for phone number
+user_password     = "ChangeMe123!" # Change this!
+user_auto_accept   = false
 
 # Tags
 tags = {

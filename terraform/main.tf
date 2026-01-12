@@ -151,10 +151,12 @@ module "user" {
   source = "./modules/user"
 
   instance_id                   = var.connect_instance_id
+  username                      = var.user_username
   first_name                    = var.user_first_name
   last_name                     = var.user_last_name
   email                         = var.user_email
   phone_number                  = var.user_phone_number
+  phone_country_code            = var.user_phone_country_code
   password                      = var.user_password
   routing_profile_id            = module.routing_profile.routing_profile_id
   security_profile_ids          = [data.aws_connect_security_profile.agent.security_profile_id]

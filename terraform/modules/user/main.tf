@@ -1,6 +1,6 @@
 resource "aws_connect_user" "this" {
   instance_id          = var.instance_id
-  name                 = "${var.first_name} ${var.last_name}"
+  name                 = var.username
   password             = var.password
   routing_profile_id   = var.routing_profile_id
   security_profile_ids = var.security_profile_ids

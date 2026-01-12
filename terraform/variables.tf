@@ -20,6 +20,12 @@ variable "routing_profile_description" {
   default     = "Default routing profile for Employee Booking service"
 }
 
+variable "user_username" {
+  description = "Login username for the user (must follow email format or contain only: a-z, A-Z, 0-9, _, -, +, .)"
+  type        = string
+  default     = "pelekengaih"
+}
+
 variable "user_first_name" {
   description = "First name of the user"
   type        = string
@@ -42,6 +48,12 @@ variable "user_phone_number" {
   description = "Phone number of the user (optional)"
   type        = string
   default     = null
+}
+
+variable "user_phone_country_code" {
+  description = "Country code for the user's phone number (e.g., US)"
+  type        = string
+  default     = "US"
 }
 
 variable "user_password" {

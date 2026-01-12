@@ -3,6 +3,11 @@ variable "instance_id" {
   type        = string
 }
 
+variable "username" {
+  description = "The login username for the user (must follow email format or contain only: a-z, A-Z, 0-9, _, -, +, .)"
+  type        = string
+}
+
 variable "first_name" {
   description = "The first name of the user"
   type        = string
@@ -22,6 +27,12 @@ variable "phone_number" {
   description = "The phone number of the user"
   type        = string
   default     = null
+}
+
+variable "phone_country_code" {
+  description = "The country code for the phone number (e.g., US)"
+  type        = string
+  default     = "US"
 }
 
 variable "password" {
