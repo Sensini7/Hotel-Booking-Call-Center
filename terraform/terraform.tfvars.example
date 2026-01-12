@@ -1,0 +1,25 @@
+# AWS Configuration
+aws_region          = "us-east-1"
+connect_instance_id = "your-connect-instance-id"
+
+# Phone Number ID (ARN or ID of the phone number in Connect)
+# You can find this in the Connect console under Phone numbers
+instance_phone_number_id = "arn:aws:connect:us-east-1:ACCOUNT_ID:instance/INSTANCE_ID/phone-number/PHONE_NUMBER_ID"
+
+# Routing Profile
+routing_profile_description = "Default routing profile for Employee Booking service"
+
+# User Configuration
+user_first_name  = "Peleke"
+user_last_name   = "Ngaih"
+user_email       = "pelekengaih@gmail.com"
+user_phone_number = "+1234567890"  # Optional
+user_password    = "ChangeMe123!"   # Change this!
+user_auto_accept = false
+
+# Tags
+tags = {
+  Environment = "production"
+  Project     = "EmployeeBooking"
+  ManagedBy   = "Terraform"
+}
