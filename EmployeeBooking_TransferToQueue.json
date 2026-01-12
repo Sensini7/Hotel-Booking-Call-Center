@@ -1,0 +1,177 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "e0285f6e-cba8-4993-b718-04599e2450d5",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "14a1e5ab-5fd6-48fa-a4a6-aea1010c1907": {
+        "position": {
+          "x": 1085.6,
+          "y": 71.2
+        }
+      },
+      "89d7878f-a55b-453b-9aee-a7fb698778e0": {
+        "position": {
+          "x": 480,
+          "y": 420.8
+        }
+      },
+      "be8016eb-3d60-4bd0-85fb-afa728817f07": {
+        "position": {
+          "x": 986.4,
+          "y": 268.8
+        }
+      },
+      "e0285f6e-cba8-4993-b718-04599e2450d5": {
+        "position": {
+          "x": 159.2,
+          "y": 153.6
+        }
+      },
+      "b937c39d-df97-4ea6-b9ab-5ff196a39a72": {
+        "position": {
+          "x": 712,
+          "y": 53.6
+        }
+      },
+      "9c1b9242-c51c-4a7d-98a6-3165389db12a": {
+        "position": {
+          "x": 432.8,
+          "y": -28.8
+        }
+      }
+    },
+    "Annotations": [],
+    "name": "EmployeeBooking_TransferToQueue",
+    "description": "transfer to queue flow for transfering clients to respective queue",
+    "type": "contactFlow",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {},
+      "Identifier": "14a1e5ab-5fd6-48fa-a4a6-aea1010c1907",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "Text": "Contact Center is currently closed. Working hours are Monday to Friday, from 8AM until 7PM. Goodbye."
+      },
+      "Identifier": "89d7878f-a55b-453b-9aee-a7fb698778e0",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "14a1e5ab-5fd6-48fa-a4a6-aea1010c1907",
+        "Errors": [
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We are not able to take your call right now, please try again later."
+      },
+      "Identifier": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "14a1e5ab-5fd6-48fa-a4a6-aea1010c1907",
+        "Errors": [
+          {
+            "NextAction": "14a1e5ab-5fd6-48fa-a4a6-aea1010c1907",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "e0285f6e-cba8-4993-b718-04599e2450d5",
+      "Type": "CheckHoursOfOperation",
+      "Transitions": {
+        "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+        "Conditions": [
+          {
+            "NextAction": "9c1b9242-c51c-4a7d-98a6-3165389db12a",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "True"
+              ]
+            }
+          },
+          {
+            "NextAction": "89d7878f-a55b-453b-9aee-a7fb698778e0",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "False"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "b937c39d-df97-4ea6-b9ab-5ff196a39a72",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+        "Errors": [
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "VoiceBehavior": {
+          "VoiceRecordingBehavior": {
+            "RecordedParticipants": [
+              "Agent",
+              "Customer"
+            ],
+            "IVRRecordingBehavior": "Disabled"
+          },
+          "VoiceAnalyticsBehavior": {
+            "Enabled": "False"
+          }
+        }
+      },
+      "Identifier": "9c1b9242-c51c-4a7d-98a6-3165389db12a",
+      "Type": "UpdateContactRecordingAndAnalyticsBehavior",
+      "Transitions": {
+        "NextAction": "b937c39d-df97-4ea6-b9ab-5ff196a39a72",
+        "Errors": [
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "ChannelMismatch"
+          }
+        ]
+      }
+    }
+  ]
+}
