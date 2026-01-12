@@ -130,6 +130,7 @@ Creates user with:
 - `routing_profile_description`: Description for routing profile
 - `user_first_name`: User first name (default: `Peleke`)
 - `user_last_name`: User last name (default: `Ngaih`)
+- `user_username` : "pelekengaih"  # Login username (must follow email format or contain only: a-z, A-Z, 0-9, _, -, +, .)
 - `user_email`: User email (default: `pelekengaih@gmail.com`)
 - `user_phone_number`: User phone number (optional)
 - `user_auto_accept`: Auto-accept calls (default: `false`)

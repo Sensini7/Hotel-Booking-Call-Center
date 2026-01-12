@@ -90,6 +90,7 @@ The project includes three pre-configured contact flows:
 
 ### User
 - **Name**: Peleke Ngaih
+- **Username/Login**: pelekengaih
 - **Email**: pelekengaih@gmail.com
 - **Security Profile**: Agent
 - **After Call Work**: 5 seconds
