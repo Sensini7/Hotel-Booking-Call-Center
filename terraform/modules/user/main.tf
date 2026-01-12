@@ -1,15 +1,15 @@
 resource "aws_connect_user" "this" {
-  instance_id        = var.instance_id
-  name               = "${var.first_name} ${var.last_name}"
-  password           = var.password
-  routing_profile_id = var.routing_profile_id
+  instance_id          = var.instance_id
+  name                 = "${var.first_name} ${var.last_name}"
+  password             = var.password
+  routing_profile_id   = var.routing_profile_id
   security_profile_ids = var.security_profile_ids
 
   phone_config {
-    phone_type   = var.phone_type
-    auto_accept  = var.auto_accept
+    phone_type                    = var.phone_type
+    auto_accept                   = var.auto_accept
     after_contact_work_time_limit = var.after_contact_work_time_limit
-    desk_phone_number = var.phone_number != null ? var.phone_number : null
+    desk_phone_number             = var.phone_number != null ? var.phone_number : null
   }
 
   identity_info {

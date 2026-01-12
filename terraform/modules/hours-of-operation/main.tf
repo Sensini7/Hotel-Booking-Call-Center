@@ -8,7 +8,7 @@ resource "aws_connect_hours_of_operation" "this" {
     for_each = var.config
     content {
       day = config.value.day
-      
+
       dynamic "end_time" {
         for_each = config.value.end_time != null ? [config.value.end_time] : []
         content {
@@ -16,7 +16,7 @@ resource "aws_connect_hours_of_operation" "this" {
           minutes = end_time.value.minutes
         }
       }
-      
+
       dynamic "start_time" {
         for_each = config.value.start_time != null ? [config.value.start_time] : []
         content {

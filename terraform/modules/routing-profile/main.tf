@@ -1,7 +1,7 @@
 resource "aws_connect_routing_profile" "this" {
-  instance_id        = var.instance_id
-  name               = var.name
-  description        = var.description
+  instance_id               = var.instance_id
+  name                      = var.name
+  description               = var.description
   default_outbound_queue_id = var.default_outbound_queue_id
 
   media_concurrencies {

@@ -7,7 +7,7 @@ resource "aws_connect_queue" "this" {
   dynamic "outbound_caller_config" {
     for_each = var.outbound_caller_id_number != null ? [1] : []
     content {
-      outbound_caller_id_name     = var.outbound_caller_id_name != null ? var.outbound_caller_id_name : null
+      outbound_caller_id_name      = var.outbound_caller_id_name != null ? var.outbound_caller_id_name : null
       outbound_caller_id_number_id = var.outbound_caller_id_number
     }
   }

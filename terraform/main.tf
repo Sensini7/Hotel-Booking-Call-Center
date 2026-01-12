@@ -1,14 +1,3 @@
-terraform {
-  required_version = ">= 1.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
 provider "aws" {
   region = var.aws_region
 }
@@ -28,11 +17,11 @@ data "aws_connect_security_profile" "agent" {
 module "hours_of_operation" {
   source = "./modules/hours-of-operation"
 
-  instance_id  = var.connect_instance_id
-  name         = "EmployeeBooking_DefaultHours"
-  description  = "Default hours of operation for Employee Booking service"
-  time_zone    = "Africa/Lagos"
-  
+  instance_id = var.connect_instance_id
+  name        = "EmployeeBooking_DefaultHours"
+  description = "Default hours of operation for Employee Booking service"
+  time_zone   = "Africa/Lagos"
+
   config = [
     {
       day = "MONDAY"
@@ -98,10 +87,10 @@ module "hours_of_operation" {
 module "queue_authenticated" {
   source = "./modules/queue"
 
-  instance_id           = var.connect_instance_id
-  name                  = "EmployeeBooking_Authenticated"
-  description           = "Queue for authenticated employee bookings"
-  hours_of_operation_id = module.hours_of_operation.hours_of_operation_id
+  instance_id               = var.connect_instance_id
+  name                      = "EmployeeBooking_Authenticated"
+  description               = "Queue for authenticated employee bookings"
+  hours_of_operation_id     = module.hours_of_operation.hours_of_operation_id
   outbound_caller_id_number = var.instance_phone_number_id
 
   tags = var.tags
@@ -113,10 +102,10 @@ module "queue_authenticated" {
 module "queue_unknown" {
   source = "./modules/queue"
 
-  instance_id           = var.connect_instance_id
-  name                  = "EmployeeBooking_Unknown"
-  description           = "Queue for unknown employee bookings"
-  hours_of_operation_id = module.hours_of_operation.hours_of_operation_id
+  instance_id               = var.connect_instance_id
+  name                      = "EmployeeBooking_Unknown"
+  description               = "Queue for unknown employee bookings"
+  hours_of_operation_id     = module.hours_of_operation.hours_of_operation_id
   outbound_caller_id_number = var.instance_phone_number_id
 
   tags = var.tags
@@ -128,11 +117,11 @@ module "queue_unknown" {
 module "routing_profile" {
   source = "./modules/routing-profile"
 
-  instance_id              = var.connect_instance_id
-  name                     = "EmployeeBooking_Default"
-  description              = var.routing_profile_description
+  instance_id               = var.connect_instance_id
+  name                      = "EmployeeBooking_Default"
+  description               = var.routing_profile_description
   default_outbound_queue_id = module.queue_unknown.queue_id
-  voice_concurrency        = 1
+  voice_concurrency         = 1
 
   queue_configs = [
     {
@@ -161,15 +150,15 @@ module "routing_profile" {
 module "user" {
   source = "./modules/user"
 
-  instance_id        = var.connect_instance_id
-  first_name         = var.user_first_name
-  last_name          = var.user_last_name
-  email              = var.user_email
-  phone_number       = var.user_phone_number
-  password           = var.user_password
-  routing_profile_id = module.routing_profile.routing_profile_id
-  security_profile_ids = [data.aws_connect_security_profile.agent.security_profile_id]
-  auto_accept        = var.user_auto_accept
+  instance_id                   = var.connect_instance_id
+  first_name                    = var.user_first_name
+  last_name                     = var.user_last_name
+  email                         = var.user_email
+  phone_number                  = var.user_phone_number
+  password                      = var.user_password
+  routing_profile_id            = module.routing_profile.routing_profile_id
+  security_profile_ids          = [data.aws_connect_security_profile.agent.security_profile_id]
+  auto_accept                   = var.user_auto_accept
   after_contact_work_time_limit = 5
 
   tags = var.tags

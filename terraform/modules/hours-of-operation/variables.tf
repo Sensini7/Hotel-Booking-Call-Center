@@ -22,7 +22,7 @@ variable "time_zone" {
 variable "config" {
   description = "One or more config blocks"
   type = list(object({
-    day       = string
+    day = string
     start_time = object({
       hours   = number
       minutes = number
