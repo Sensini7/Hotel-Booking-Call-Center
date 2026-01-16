@@ -1,0 +1,218 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "e0285f6e-cba8-4993-b718-04599e2450d5",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 40,
+      "y": 40
+    },
+    "ActionMetadata": {
+      "89d7878f-a55b-453b-9aee-a7fb698778e0": {
+        "position": {
+          "x": 480,
+          "y": 420.8
+        }
+      },
+      "14a1e5ab-5fd6-48fa-a4a6-aea1010c1907": {
+        "position": {
+          "x": 1471.2,
+          "y": 29.6
+        }
+      },
+      "e0285f6e-cba8-4993-b718-04599e2450d5": {
+        "position": {
+          "x": 159.2,
+          "y": 153.6
+        }
+      },
+      "be8016eb-3d60-4bd0-85fb-afa728817f07": {
+        "position": {
+          "x": 1179.2,
+          "y": 264.8
+        }
+      },
+      "b937c39d-df97-4ea6-b9ab-5ff196a39a72": {
+        "position": {
+          "x": 1035.2,
+          "y": 2.4
+        }
+      },
+      "9c1b9242-c51c-4a7d-98a6-3165389db12a": {
+        "position": {
+          "x": 432.8,
+          "y": -28.8
+        }
+      },
+      "ee40faf1-fec8-414b-9a83-c29395149e0e": {
+        "position": {
+          "x": 672,
+          "y": -75.2
+        },
+        "parameters": {
+          "EventHooks": {
+            "AgentWhisper": {
+              "displayName": "EmployeeBooking_AgentWhisper"
+            }
+          }
+        },
+        "contactFlow": {
+          "text": "EmployeeBooking_AgentWhisper",
+          "id": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/contact-flow/eab2773c-157f-42ed-89ba-b7f99d892915"
+        },
+        "customerOrAgent": false
+      }
+    },
+    "Annotations": [],
+    "name": "EmployeeBooking_TransferToQueue",
+    "description": "transfer to queue flow for transfering clients to respective queue",
+    "type": "contactFlow",
+    "status": "published",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {
+        "Text": "Contact Center is currently closed. Working hours are Monday to Friday, from 8AM until 7PM. Goodbye."
+      },
+      "Identifier": "89d7878f-a55b-453b-9aee-a7fb698778e0",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "14a1e5ab-5fd6-48fa-a4a6-aea1010c1907",
+        "Errors": [
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "14a1e5ab-5fd6-48fa-a4a6-aea1010c1907",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {},
+      "Identifier": "e0285f6e-cba8-4993-b718-04599e2450d5",
+      "Type": "CheckHoursOfOperation",
+      "Transitions": {
+        "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+        "Conditions": [
+          {
+            "NextAction": "9c1b9242-c51c-4a7d-98a6-3165389db12a",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "True"
+              ]
+            }
+          },
+          {
+            "NextAction": "89d7878f-a55b-453b-9aee-a7fb698778e0",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "False"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We are not able to take your call right now, please try again later."
+      },
+      "Identifier": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "14a1e5ab-5fd6-48fa-a4a6-aea1010c1907",
+        "Errors": [
+          {
+            "NextAction": "14a1e5ab-5fd6-48fa-a4a6-aea1010c1907",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "b937c39d-df97-4ea6-b9ab-5ff196a39a72",
+      "Type": "TransferContactToQueue",
+      "Transitions": {
+        "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+        "Errors": [
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "QueueAtCapacity"
+          },
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "VoiceBehavior": {
+          "VoiceRecordingBehavior": {
+            "RecordedParticipants": [
+              "Agent",
+              "Customer"
+            ],
+            "IVRRecordingBehavior": "Disabled"
+          },
+          "VoiceAnalyticsBehavior": {
+            "Enabled": "False"
+          }
+        }
+      },
+      "Identifier": "9c1b9242-c51c-4a7d-98a6-3165389db12a",
+      "Type": "UpdateContactRecordingAndAnalyticsBehavior",
+      "Transitions": {
+        "NextAction": "ee40faf1-fec8-414b-9a83-c29395149e0e",
+        "Errors": [
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "be8016eb-3d60-4bd0-85fb-afa728817f07",
+            "ErrorType": "ChannelMismatch"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "EventHooks": {
+          "AgentWhisper": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/contact-flow/eab2773c-157f-42ed-89ba-b7f99d892915"
+        },
+        "EventHooksConfiguration": {
+          "AgentWhisper": {
+            "DisableExecution": "false"
+          }
+        }
+      },
+      "Identifier": "ee40faf1-fec8-414b-9a83-c29395149e0e",
+      "Type": "UpdateContactEventHooks",
+      "Transitions": {
+        "NextAction": "b937c39d-df97-4ea6-b9ab-5ff196a39a72",
+        "Errors": [
+          {
+            "NextAction": "b937c39d-df97-4ea6-b9ab-5ff196a39a72",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}
