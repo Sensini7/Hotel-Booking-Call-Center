@@ -161,7 +161,7 @@ module "dynamodb_table" {
   table_name            = var.dynamodb_table_name
   sample_employee_email = var.employee_email
   sample_employee_name  = var.employee_name
-  sample_employee_phone = var.employee_phone_number
+  sample_employee_phone = var.sample_employee_phone_number
 
   tags = var.tags
 }
