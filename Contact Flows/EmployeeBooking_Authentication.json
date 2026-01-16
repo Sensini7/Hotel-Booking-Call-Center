@@ -1,0 +1,1395 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "2adf1175-8b48-46c7-a2f4-3a812081212a",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 74.4,
+      "y": 20
+    },
+    "ActionMetadata": {
+      "8d366d39-7593-4262-9292-02b02e9d835a": {
+        "position": {
+          "x": 2846.4,
+          "y": 1296.8
+        }
+      },
+      "1a22b662-8149-4eb1-8be2-802e3b70286d": {
+        "position": {
+          "x": 3104.8,
+          "y": 1304
+        }
+      },
+      "a2e7bc0f-00cf-4936-983b-f069b382c63e": {
+        "position": {
+          "x": 4277.6,
+          "y": 98.4
+        }
+      },
+      "75e4244c-fd23-4aa3-9f3a-f976249d1eb4": {
+        "position": {
+          "x": 3069.6,
+          "y": 1016
+        },
+        "parameters": {
+          "QueueId": {
+            "displayName": "EmployeeBooking_Unknown"
+          }
+        },
+        "queue": {
+          "text": "EmployeeBooking_Unknown"
+        }
+      },
+      "bd061729-8506-4229-ab59-a8fd12736d81": {
+        "position": {
+          "x": 3357.6,
+          "y": 1086.4
+        },
+        "parameters": {
+          "ContactFlowId": {
+            "displayName": "EmployeeBooking_TransferToQueue"
+          }
+        },
+        "ContactFlow": {
+          "text": "EmployeeBooking_TransferToQueue"
+        }
+      },
+      "ce6f895b-3342-424b-9625-c8bc9915b6f6": {
+        "position": {
+          "x": 2301.6,
+          "y": 701.6
+        }
+      },
+      "80f9609f-e5d0-4ef8-a012-86943e3aa1ff": {
+        "position": {
+          "x": 1845.6,
+          "y": 1134.4
+        }
+      },
+      "5dbbc782-85b7-4422-8ce8-6ac77ae75501": {
+        "position": {
+          "x": 345.6,
+          "y": 972
+        },
+        "dynamicParams": []
+      },
+      "59b50fde-39dc-403f-8da9-fec34d1ab58c": {
+        "position": {
+          "x": 628.8,
+          "y": 980
+        }
+      },
+      "ecd0c69b-8bb5-43b3-a212-480722b795be": {
+        "position": {
+          "x": 1356,
+          "y": 1128.8
+        }
+      },
+      "5448e578-170f-433c-ae4b-b7a93716b0eb": {
+        "position": {
+          "x": 874.4,
+          "y": 956.8
+        },
+        "parameters": {
+          "QueueId": {
+            "displayName": "EmployeeBooking_Authenticated"
+          }
+        },
+        "queue": {
+          "text": "EmployeeBooking_Authenticated"
+        }
+      },
+      "d6ea87c2-1cef-4bee-b52e-44483541d0d9": {
+        "position": {
+          "x": 1126.4,
+          "y": 893.6
+        },
+        "parameters": {
+          "ContactFlowId": {
+            "displayName": "EmployeeBooking_LexBot"
+          }
+        },
+        "ContactFlow": {
+          "text": "EmployeeBooking_LexBot"
+        }
+      },
+      "de248fde-dfc4-4ca4-aca9-c0b64e425ed1": {
+        "position": {
+          "x": 1126.4,
+          "y": 1108
+        }
+      },
+      "80ba60df-9899-4d00-8ad2-ff561d08d742": {
+        "position": {
+          "x": 644,
+          "y": 1409.6
+        }
+      },
+      "dc726c16-317e-4e0d-915a-37a68dc9901e": {
+        "position": {
+          "x": 636,
+          "y": 1200.8
+        }
+      },
+      "8c97e853-9605-481a-9310-fec09f86ec9b": {
+        "position": {
+          "x": 349.6,
+          "y": 1180.8
+        },
+        "dynamicParams": []
+      },
+      "e08cd383-8a67-48ec-87b1-83f13a861fea": {
+        "position": {
+          "x": 1788.8,
+          "y": 237.6
+        }
+      },
+      "65077130-0d6c-423f-b12c-1ded6d516766": {
+        "position": {
+          "x": 1788,
+          "y": 552
+        }
+      },
+      "fedab170-1c2f-422c-b0e8-ca325d53e2c7": {
+        "position": {
+          "x": 1552,
+          "y": 240
+        },
+        "conditionMetadata": [],
+        "countryCodePrefix": "+1"
+      },
+      "027c15b1-144a-4d20-9b6d-8c2fa8f7ded9": {
+        "position": {
+          "x": 1268,
+          "y": 532.8
+        },
+        "dynamicParams": []
+      },
+      "91016d68-42ca-4ae1-aaf7-4dce2eb0edfe": {
+        "position": {
+          "x": 2596,
+          "y": 1014.4
+        },
+        "conditionMetadata": [
+          {
+            "id": "66a3a643-73cf-40ad-aec1-a7a663278499",
+            "value": "1"
+          }
+        ]
+      },
+      "45ec1f36-780d-4d7b-bb05-2c7033dd8f4f": {
+        "position": {
+          "x": 2120,
+          "y": 1090.4
+        },
+        "dynamicParams": []
+      },
+      "a1220252-61e2-4cfe-aa66-f89bf74167a4": {
+        "position": {
+          "x": 2122.4,
+          "y": 872.8
+        },
+        "dynamicParams": []
+      },
+      "293e5f64-6c15-4628-9c43-0e7d4805c7e3": {
+        "position": {
+          "x": 2129.6,
+          "y": 1324.8
+        },
+        "dynamicParams": []
+      },
+      "28885663-9ed1-4f85-95e9-80e9abbcc30f": {
+        "position": {
+          "x": 2368.8,
+          "y": 1014.4
+        }
+      },
+      "067c6f85-45b7-43b4-b8e0-bdd16c097509": {
+        "position": {
+          "x": 3046.4,
+          "y": 672.8
+        },
+        "parameters": {
+          "ContactFlowId": {
+            "displayName": "EmployeeBooking_LexBot"
+          }
+        },
+        "ContactFlow": {
+          "text": "EmployeeBooking_LexBot"
+        }
+      },
+      "d1a91b75-3194-4efb-be88-fcc0f8ef88ec": {
+        "position": {
+          "x": 2528,
+          "y": 688
+        },
+        "dynamicParams": []
+      },
+      "f93067ac-edec-479e-a1f6-5977d1eededc": {
+        "position": {
+          "x": 2766.4,
+          "y": 684.8
+        },
+        "parameters": {
+          "QueueId": {
+            "displayName": "EmployeeBooking_Authenticated"
+          }
+        },
+        "queue": {
+          "text": "EmployeeBooking_Authenticated"
+        }
+      },
+      "47d372ee-bd62-455c-895a-f022f56eccc5": {
+        "position": {
+          "x": 2034.4,
+          "y": 238.4
+        },
+        "dynamicParams": []
+      },
+      "d6e96680-1176-4d96-a67e-21be6bb4fd5e": {
+        "position": {
+          "x": 2038.4,
+          "y": 544
+        },
+        "dynamicParams": []
+      },
+      "c9ea22e1-a3d2-400b-b030-85c3a02b6ccb": {
+        "position": {
+          "x": 1217.6,
+          "y": 30.4
+        }
+      },
+      "7e45a85b-7ea3-4461-822e-c33de0b3b796": {
+        "position": {
+          "x": 3992,
+          "y": 92.8
+        }
+      },
+      "85e32307-cc83-40a8-ac6d-ec742c309285": {
+        "position": {
+          "x": 2333.6,
+          "y": 16
+        },
+        "parameters": {
+          "QueueId": {
+            "displayName": "EmployeeBooking_Unknown"
+          }
+        },
+        "queue": {
+          "text": "EmployeeBooking_Unknown"
+        }
+      },
+      "2a5297c4-992c-45ae-b557-427ff7ca067d": {
+        "position": {
+          "x": 2604.8,
+          "y": 25.6
+        },
+        "parameters": {
+          "ContactFlowId": {
+            "displayName": "EmployeeBooking_TransferToQueue"
+          }
+        },
+        "ContactFlow": {
+          "text": "EmployeeBooking_TransferToQueue"
+        }
+      },
+      "9a506273-8b61-401b-b708-4416e91999de": {
+        "position": {
+          "x": 1245.6,
+          "y": 246.4
+        },
+        "conditionMetadata": [
+          {
+            "id": "224be9c8-487f-490a-afbc-7332e75acc43",
+            "value": "1"
+          }
+        ]
+      },
+      "8009a6bb-818f-4cb5-bc55-4b87b255f9ad": {
+        "position": {
+          "x": 684,
+          "y": 510.4
+        },
+        "dynamicParams": []
+      },
+      "00ca974f-d25b-45bf-890b-d655a9e421d4": {
+        "position": {
+          "x": 78.4,
+          "y": 762.4
+        }
+      },
+      "30ec815e-74f5-4bf3-bd59-6ab11f5320ae": {
+        "position": {
+          "x": 448.8,
+          "y": 350.4
+        },
+        "dynamicParams": []
+      },
+      "23c55f37-fcd9-455d-b5d4-445009546568": {
+        "position": {
+          "x": 70.4,
+          "y": 469.6
+        },
+        "conditions": [],
+        "conditionMetadata": [
+          {
+            "id": "ffe5c508-3357-409b-be99-b3d93a6fcff8",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "0"
+          },
+          {
+            "id": "f05788ea-7b4f-4368-8637-4628375bbdec",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "2"
+          }
+        ]
+      },
+      "2adf1175-8b48-46c7-a2f4-3a812081212a": {
+        "position": {
+          "x": 72.8,
+          "y": 224.8
+        },
+        "parameters": {
+          "LambdaFunctionARN": {
+            "displayName": "EmployeeBooking_DBLookup"
+          },
+          "LambdaInvocationAttributes": {
+            "PhoneNumber": {
+              "useDynamic": true
+            }
+          }
+        },
+        "dynamicMetadata": {
+          "PhoneNumber": true
+        }
+      },
+      "f3f11d23-30b5-4e80-bbb9-6b708ce441c5": {
+        "position": {
+          "x": 1840.8,
+          "y": 849.6
+        },
+        "conditions": [],
+        "conditionMetadata": [
+          {
+            "id": "3c417ce6-3832-4cb7-af69-7843cc361516",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "0"
+          },
+          {
+            "id": "84f67d28-6ed3-48f5-835d-8a7f8c2def1a",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "1"
+          },
+          {
+            "id": "3496cc3b-483f-4138-82c8-78f60c813b06",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "3"
+          }
+        ]
+      },
+      "04fd0dca-b910-4da7-aa37-abe253ee66bb": {
+        "position": {
+          "x": 1613.6,
+          "y": 969.6
+        },
+        "dynamicParams": []
+      },
+      "e216b37c-5c07-4531-a7d7-c079d986245d": {
+        "position": {
+          "x": 1544.8,
+          "y": 540.8
+        },
+        "conditionMetadata": [],
+        "countryCodePrefix": "+1"
+      },
+      "1995f4b1-15ed-4313-b2b9-c397eddd791e": {
+        "position": {
+          "x": 1574.4,
+          "y": 777.6
+        },
+        "parameters": {
+          "LambdaFunctionARN": {
+            "displayName": "EmployeeBooking_DBLookup"
+          },
+          "LambdaInvocationAttributes": {
+            "EmployeeID": {
+              "useDynamic": true
+            },
+            "EmployeePIN": {
+              "useDynamic": true
+            }
+          }
+        },
+        "dynamicMetadata": {
+          "EmployeeID": true,
+          "EmployeePIN": true
+        }
+      },
+      "5d79bc36-0afb-44d6-931a-3fe79a375560": {
+        "position": {
+          "x": 348,
+          "y": 1412
+        },
+        "dynamicParams": []
+      },
+      "e4d34160-86f2-4d70-a0ea-aaffc4357cbd": {
+        "position": {
+          "x": 62.4,
+          "y": 970.4
+        },
+        "conditions": [],
+        "conditionMetadata": [
+          {
+            "id": "7754c2ac-02cc-4684-aa4a-b74d94ed4b9a",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "1"
+          },
+          {
+            "id": "7838f2fc-d37d-4116-be59-847265ac2c3f",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "3"
+          }
+        ]
+      },
+      "d83e3e8b-43b7-4fba-bf0e-1966d73ca4de": {
+        "position": {
+          "x": 352.8,
+          "y": 744
+        },
+        "conditionMetadata": [],
+        "countryCodePrefix": "+1"
+      },
+      "b499938d-fd92-471f-8220-4c3b2d57e129": {
+        "position": {
+          "x": 624,
+          "y": 739.2
+        },
+        "parameters": {
+          "LambdaFunctionARN": {
+            "displayName": "EmployeeBooking_DBLookup"
+          },
+          "LambdaInvocationAttributes": {
+            "PhoneNumber": {
+              "useDynamic": true
+            },
+            "EmployeePIN": {
+              "useDynamic": true
+            }
+          }
+        },
+        "dynamicMetadata": {
+          "PhoneNumber": true,
+          "EmployeePIN": true
+        }
+      }
+    },
+    "Annotations": [],
+    "name": "EmployeeBooking_Authentication",
+    "description": "Contact Flow for Employee Authentication",
+    "type": "contactFlow",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {
+        "Text": "Thank you for calling. Good bye!"
+      },
+      "Identifier": "8d366d39-7593-4262-9292-02b02e9d835a",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "1a22b662-8149-4eb1-8be2-802e3b70286d"
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "1a22b662-8149-4eb1-8be2-802e3b70286d",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {},
+      "Identifier": "a2e7bc0f-00cf-4936-983b-f069b382c63e",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/queue/7ffd9e38-bf51-442a-9c92-61c0e59465a4"
+      },
+      "Identifier": "75e4244c-fd23-4aa3-9f3a-f976249d1eb4",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "bd061729-8506-4229-ab59-a8fd12736d81",
+        "Errors": [
+          {
+            "NextAction": "7e45a85b-7ea3-4461-822e-c33de0b3b796",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "ContactFlowId": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/contact-flow/0dc45683-9fc0-4214-8c61-479c4c87bcf0"
+      },
+      "Identifier": "bd061729-8506-4229-ab59-a8fd12736d81",
+      "Type": "TransferToFlow",
+      "Transitions": {
+        "NextAction": "7e45a85b-7ea3-4461-822e-c33de0b3b796",
+        "Errors": [
+          {
+            "NextAction": "7e45a85b-7ea3-4461-822e-c33de0b3b796",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Hi, $.External.EmployeeName . You have successfully authenticated."
+      },
+      "Identifier": "ce6f895b-3342-424b-9625-c8bc9915b6f6",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "d1a91b75-3194-4efb-be88-fcc0f8ef88ec"
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We're sorry, an error occurred."
+      },
+      "Identifier": "80f9609f-e5d0-4ef8-a012-86943e3aa1ff",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "91016d68-42ca-4ae1-aaf7-4dce2eb0edfe"
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "EmployeeLookup": "PhoneNumber",
+          "EmployeeID": "$.External.EmployeeID",
+          "EmployeeName": "$.External.EmployeeName"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "5dbbc782-85b7-4422-8ce8-6ac77ae75501",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "59b50fde-39dc-403f-8da9-fec34d1ab58c",
+        "Errors": [
+          {
+            "NextAction": "59b50fde-39dc-403f-8da9-fec34d1ab58c",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Thank you. You have successfully authenticated."
+      },
+      "Identifier": "59b50fde-39dc-403f-8da9-fec34d1ab58c",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "5448e578-170f-433c-ae4b-b7a93716b0eb"
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "ecd0c69b-8bb5-43b3-a212-480722b795be",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/queue/5586248f-eae6-486a-b2e6-2fb531f43b08"
+      },
+      "Identifier": "5448e578-170f-433c-ae4b-b7a93716b0eb",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "d6ea87c2-1cef-4bee-b52e-44483541d0d9",
+        "Errors": [
+          {
+            "NextAction": "de248fde-dfc4-4ca4-aca9-c0b64e425ed1",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "ContactFlowId": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/contact-flow/c86b9453-c61e-47ee-af4b-5a1a09f8dbad"
+      },
+      "Identifier": "d6ea87c2-1cef-4bee-b52e-44483541d0d9",
+      "Type": "TransferToFlow",
+      "Transitions": {
+        "NextAction": "de248fde-dfc4-4ca4-aca9-c0b64e425ed1",
+        "Errors": [
+          {
+            "NextAction": "de248fde-dfc4-4ca4-aca9-c0b64e425ed1",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We're sorry, an error occurred. Please try again later."
+      },
+      "Identifier": "de248fde-dfc4-4ca4-aca9-c0b64e425ed1",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "ecd0c69b-8bb5-43b3-a212-480722b795be"
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We're sorry, an error occurred."
+      },
+      "Identifier": "80ba60df-9899-4d00-8ad2-ff561d08d742",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "91016d68-42ca-4ae1-aaf7-4dce2eb0edfe"
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Sorry, the PIN entered is invalid."
+      },
+      "Identifier": "dc726c16-317e-4e0d-915a-37a68dc9901e",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "91016d68-42ca-4ae1-aaf7-4dce2eb0edfe"
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "EmployeeLookup": "EmployeePIN-Wrong"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "8c97e853-9605-481a-9310-fec09f86ec9b",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "dc726c16-317e-4e0d-915a-37a68dc9901e",
+        "Errors": [
+          {
+            "NextAction": "dc726c16-317e-4e0d-915a-37a68dc9901e",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We're sorry, an error occurred."
+      },
+      "Identifier": "e08cd383-8a67-48ec-87b1-83f13a861fea",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "47d372ee-bd62-455c-895a-f022f56eccc5"
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We're sorry, an error occurred."
+      },
+      "Identifier": "65077130-0d6c-423f-b12c-1ded6d516766",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "d6e96680-1176-4d96-a67e-21be6bb4fd5e"
+      }
+    },
+    {
+      "Parameters": {
+        "StoreInput": "True",
+        "InputTimeLimitSeconds": "5",
+        "Text": "Please enter you Employee ID.",
+        "DTMFConfiguration": {
+          "DisableCancelKey": "False",
+          "InterdigitTimeLimitSeconds": "5"
+        },
+        "InputValidation": {
+          "CustomValidation": {
+            "MaximumLength": "3"
+          }
+        }
+      },
+      "Identifier": "fedab170-1c2f-422c-b0e8-ca325d53e2c7",
+      "Type": "GetParticipantInput",
+      "Transitions": {
+        "NextAction": "027c15b1-144a-4d20-9b6d-8c2fa8f7ded9",
+        "Errors": [
+          {
+            "NextAction": "e08cd383-8a67-48ec-87b1-83f13a861fea",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "CI_EmployeeID": "$.StoredCustomerInput"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "027c15b1-144a-4d20-9b6d-8c2fa8f7ded9",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "e216b37c-5c07-4531-a7d7-c079d986245d",
+        "Errors": [
+          {
+            "NextAction": "65077130-0d6c-423f-b12c-1ded6d516766",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "If you would like to speak to an agent, please press 1.",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5"
+      },
+      "Identifier": "91016d68-42ca-4ae1-aaf7-4dce2eb0edfe",
+      "Type": "GetParticipantInput",
+      "Transitions": {
+        "NextAction": "8d366d39-7593-4262-9292-02b02e9d835a",
+        "Conditions": [
+          {
+            "NextAction": "75e4244c-fd23-4aa3-9f3a-f976249d1eb4",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "8d366d39-7593-4262-9292-02b02e9d835a",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "8d366d39-7593-4262-9292-02b02e9d835a",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "75e4244c-fd23-4aa3-9f3a-f976249d1eb4",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "EmployeeLookup": "EmployeePIN-Wrong"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "45ec1f36-780d-4d7b-bb05-2c7033dd8f4f",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "28885663-9ed1-4f85-95e9-80e9abbcc30f",
+        "Errors": [
+          {
+            "NextAction": "28885663-9ed1-4f85-95e9-80e9abbcc30f",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "EmployeeLookup": "EmployeeID-Unknown"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "a1220252-61e2-4cfe-aa66-f89bf74167a4",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "28885663-9ed1-4f85-95e9-80e9abbcc30f",
+        "Errors": [
+          {
+            "NextAction": "28885663-9ed1-4f85-95e9-80e9abbcc30f",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "EmployeeLookup": "EmployeeID-Error"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "293e5f64-6c15-4628-9c43-0e7d4805c7e3",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "28885663-9ed1-4f85-95e9-80e9abbcc30f",
+        "Errors": [
+          {
+            "NextAction": "28885663-9ed1-4f85-95e9-80e9abbcc30f",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Sorry, we are not able to recognize you."
+      },
+      "Identifier": "28885663-9ed1-4f85-95e9-80e9abbcc30f",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "91016d68-42ca-4ae1-aaf7-4dce2eb0edfe"
+      }
+    },
+    {
+      "Parameters": {
+        "ContactFlowId": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/contact-flow/c86b9453-c61e-47ee-af4b-5a1a09f8dbad"
+      },
+      "Identifier": "067c6f85-45b7-43b4-b8e0-bdd16c097509",
+      "Type": "TransferToFlow",
+      "Transitions": {
+        "NextAction": "7e45a85b-7ea3-4461-822e-c33de0b3b796",
+        "Errors": [
+          {
+            "NextAction": "7e45a85b-7ea3-4461-822e-c33de0b3b796",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "CustomerLookup": "EmployeeID",
+          "EmployeeID": "$.External.EmployeeID",
+          "EmployeeName": "$.External.EmployeeName"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "d1a91b75-3194-4efb-be88-fcc0f8ef88ec",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "f93067ac-edec-479e-a1f6-5977d1eededc",
+        "Errors": [
+          {
+            "NextAction": "f93067ac-edec-479e-a1f6-5977d1eededc",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/queue/5586248f-eae6-486a-b2e6-2fb531f43b08"
+      },
+      "Identifier": "f93067ac-edec-479e-a1f6-5977d1eededc",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "067c6f85-45b7-43b4-b8e0-bdd16c097509",
+        "Errors": [
+          {
+            "NextAction": "7e45a85b-7ea3-4461-822e-c33de0b3b796",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "EmployeeLookup": "EmployeeID-InputFailed"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "47d372ee-bd62-455c-895a-f022f56eccc5",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "85e32307-cc83-40a8-ac6d-ec742c309285",
+        "Errors": [
+          {
+            "NextAction": "85e32307-cc83-40a8-ac6d-ec742c309285",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "EmployeeLookup": "EmployeePIN-InputFailed"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "d6e96680-1176-4d96-a67e-21be6bb4fd5e",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "85e32307-cc83-40a8-ac6d-ec742c309285",
+        "Errors": [
+          {
+            "NextAction": "85e32307-cc83-40a8-ac6d-ec742c309285",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Welcome to Amazon Connect Employee Booking service."
+      },
+      "Identifier": "c9ea22e1-a3d2-400b-b030-85c3a02b6ccb",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "85e32307-cc83-40a8-ac6d-ec742c309285"
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We're sorry, an error occurred. Please try again later."
+      },
+      "Identifier": "7e45a85b-7ea3-4461-822e-c33de0b3b796",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "a2e7bc0f-00cf-4936-983b-f069b382c63e"
+      }
+    },
+    {
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/queue/7ffd9e38-bf51-442a-9c92-61c0e59465a4"
+      },
+      "Identifier": "85e32307-cc83-40a8-ac6d-ec742c309285",
+      "Type": "UpdateContactTargetQueue",
+      "Transitions": {
+        "NextAction": "2a5297c4-992c-45ae-b557-427ff7ca067d",
+        "Errors": [
+          {
+            "NextAction": "7e45a85b-7ea3-4461-822e-c33de0b3b796",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "ContactFlowId": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/contact-flow/0dc45683-9fc0-4214-8c61-479c4c87bcf0"
+      },
+      "Identifier": "2a5297c4-992c-45ae-b557-427ff7ca067d",
+      "Type": "TransferToFlow",
+      "Transitions": {
+        "NextAction": "7e45a85b-7ea3-4461-822e-c33de0b3b796",
+        "Errors": [
+          {
+            "NextAction": "7e45a85b-7ea3-4461-822e-c33de0b3b796",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Welcome to Amazon Connect Employee Booking service.\nWe are not able to recognize your phone number. If you  would like to enter your Employee ID, please press 1.",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "3"
+      },
+      "Identifier": "9a506273-8b61-401b-b708-4416e91999de",
+      "Type": "GetParticipantInput",
+      "Transitions": {
+        "NextAction": "85e32307-cc83-40a8-ac6d-ec742c309285",
+        "Conditions": [
+          {
+            "NextAction": "fedab170-1c2f-422c-b0e8-ca325d53e2c7",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "85e32307-cc83-40a8-ac6d-ec742c309285",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "85e32307-cc83-40a8-ac6d-ec742c309285",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "85e32307-cc83-40a8-ac6d-ec742c309285",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "EmployeeLookup": "PhoneNumber-Unknown"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "8009a6bb-818f-4cb5-bc55-4b87b255f9ad",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "9a506273-8b61-401b-b708-4416e91999de",
+        "Errors": [
+          {
+            "NextAction": "9a506273-8b61-401b-b708-4416e91999de",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Hi, $.External.EmployeeName . Welcome to Amazon Connect Employee Booking service."
+      },
+      "Identifier": "00ca974f-d25b-45bf-890b-d655a9e421d4",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "d83e3e8b-43b7-4fba-bf0e-1966d73ca4de"
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "EmployeeLookup": "PhoneNumber-Failed"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "30ec815e-74f5-4bf3-bd59-6ab11f5320ae",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "c9ea22e1-a3d2-400b-b030-85c3a02b6ccb",
+        "Errors": [
+          {
+            "NextAction": "c9ea22e1-a3d2-400b-b030-85c3a02b6ccb",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "ComparisonValue": "$.External.EmployeeType"
+      },
+      "Identifier": "23c55f37-fcd9-455d-b5d4-445009546568",
+      "Type": "Compare",
+      "Transitions": {
+        "NextAction": "30ec815e-74f5-4bf3-bd59-6ab11f5320ae",
+        "Conditions": [
+          {
+            "NextAction": "8009a6bb-818f-4cb5-bc55-4b87b255f9ad",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "0"
+              ]
+            }
+          },
+          {
+            "NextAction": "00ca974f-d25b-45bf-890b-d655a9e421d4",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "30ec815e-74f5-4bf3-bd59-6ab11f5320ae",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-east-1:290074911549:function:EmployeeBooking_DBLookup",
+        "InvocationTimeLimitSeconds": "4",
+        "InvocationType": "SYNCHRONOUS",
+        "LambdaInvocationAttributes": {
+          "PhoneNumber": "$.CustomerEndpoint.Address"
+        },
+        "ResponseValidation": {
+          "ResponseType": "STRING_MAP"
+        }
+      },
+      "Identifier": "2adf1175-8b48-46c7-a2f4-3a812081212a",
+      "Type": "InvokeLambdaFunction",
+      "Transitions": {
+        "NextAction": "23c55f37-fcd9-455d-b5d4-445009546568",
+        "Errors": [
+          {
+            "NextAction": "30ec815e-74f5-4bf3-bd59-6ab11f5320ae",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "ComparisonValue": "$.External.EmployeeType"
+      },
+      "Identifier": "f3f11d23-30b5-4e80-bbb9-6b708ce441c5",
+      "Type": "Compare",
+      "Transitions": {
+        "NextAction": "293e5f64-6c15-4628-9c43-0e7d4805c7e3",
+        "Conditions": [
+          {
+            "NextAction": "a1220252-61e2-4cfe-aa66-f89bf74167a4",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "0"
+              ]
+            }
+          },
+          {
+            "NextAction": "ce6f895b-3342-424b-9625-c8bc9915b6f6",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "45ec1f36-780d-4d7b-bb05-2c7033dd8f4f",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "293e5f64-6c15-4628-9c43-0e7d4805c7e3",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "CustomerLookup": "EmployeeID-Failed"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "04fd0dca-b910-4da7-aa37-abe253ee66bb",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "80f9609f-e5d0-4ef8-a012-86943e3aa1ff",
+        "Errors": [
+          {
+            "NextAction": "80f9609f-e5d0-4ef8-a012-86943e3aa1ff",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "StoreInput": "True",
+        "InputTimeLimitSeconds": "5",
+        "Text": "Please enter your PIN:",
+        "DTMFConfiguration": {
+          "DisableCancelKey": "False",
+          "InterdigitTimeLimitSeconds": "5"
+        },
+        "InputValidation": {
+          "CustomValidation": {
+            "MaximumLength": "3"
+          }
+        }
+      },
+      "Identifier": "e216b37c-5c07-4531-a7d7-c079d986245d",
+      "Type": "GetParticipantInput",
+      "Transitions": {
+        "NextAction": "1995f4b1-15ed-4313-b2b9-c397eddd791e",
+        "Errors": [
+          {
+            "NextAction": "65077130-0d6c-423f-b12c-1ded6d516766",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-east-1:290074911549:function:EmployeeBooking_DBLookup",
+        "InvocationTimeLimitSeconds": "4",
+        "InvocationType": "SYNCHRONOUS",
+        "LambdaInvocationAttributes": {
+          "EmployeeID": "$.Attributes.CI_EmployeeID",
+          "EmployeePIN": "$.StoredCustomerInput"
+        },
+        "ResponseValidation": {
+          "ResponseType": "STRING_MAP"
+        }
+      },
+      "Identifier": "1995f4b1-15ed-4313-b2b9-c397eddd791e",
+      "Type": "InvokeLambdaFunction",
+      "Transitions": {
+        "NextAction": "f3f11d23-30b5-4e80-bbb9-6b708ce441c5",
+        "Errors": [
+          {
+            "NextAction": "04fd0dca-b910-4da7-aa37-abe253ee66bb",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "EmployeeLookup": "EmployeePIN-Error"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "5d79bc36-0afb-44d6-931a-3fe79a375560",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "80ba60df-9899-4d00-8ad2-ff561d08d742",
+        "Errors": [
+          {
+            "NextAction": "80ba60df-9899-4d00-8ad2-ff561d08d742",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "ComparisonValue": "$.External.EmployeeType"
+      },
+      "Identifier": "e4d34160-86f2-4d70-a0ea-aaffc4357cbd",
+      "Type": "Compare",
+      "Transitions": {
+        "NextAction": "5d79bc36-0afb-44d6-931a-3fe79a375560",
+        "Conditions": [
+          {
+            "NextAction": "5dbbc782-85b7-4422-8ce8-6ac77ae75501",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "8c97e853-9605-481a-9310-fec09f86ec9b",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "5d79bc36-0afb-44d6-931a-3fe79a375560",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "StoreInput": "True",
+        "InputTimeLimitSeconds": "5",
+        "Text": "Please enter your PIN:",
+        "DTMFConfiguration": {
+          "DisableCancelKey": "False",
+          "InterdigitTimeLimitSeconds": "5"
+        },
+        "InputValidation": {
+          "CustomValidation": {
+            "MaximumLength": "3"
+          }
+        }
+      },
+      "Identifier": "d83e3e8b-43b7-4fba-bf0e-1966d73ca4de",
+      "Type": "GetParticipantInput",
+      "Transitions": {
+        "NextAction": "b499938d-fd92-471f-8220-4c3b2d57e129",
+        "Errors": [
+          {
+            "NextAction": "b499938d-fd92-471f-8220-4c3b2d57e129",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-east-1:290074911549:function:EmployeeBooking_DBLookup",
+        "InvocationTimeLimitSeconds": "3",
+        "InvocationType": "SYNCHRONOUS",
+        "LambdaInvocationAttributes": {
+          "PhoneNumber": "$.Customer Number",
+          "EmployeePIN": "$.StoredCustomerInput"
+        },
+        "ResponseValidation": {
+          "ResponseType": "STRING_MAP"
+        }
+      },
+      "Identifier": "b499938d-fd92-471f-8220-4c3b2d57e129",
+      "Type": "InvokeLambdaFunction",
+      "Transitions": {
+        "NextAction": "e4d34160-86f2-4d70-a0ea-aaffc4357cbd",
+        "Errors": [
+          {
+            "NextAction": "5d79bc36-0afb-44d6-931a-3fe79a375560",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}
