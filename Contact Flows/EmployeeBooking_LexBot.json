@@ -1,0 +1,332 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "5fc97b24-1aab-43b6-9412-75f24166e933",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": -83.2,
+      "y": -77.6
+    },
+    "ActionMetadata": {
+      "5fc97b24-1aab-43b6-9412-75f24166e933": {
+        "position": {
+          "x": 16,
+          "y": -23.2
+        },
+        "parameters": {
+          "LexV2Bot": {
+            "AliasArn": {
+              "displayName": "EmployeeBookingProd",
+              "useLexBotDropdown": true,
+              "lexV2BotName": "EmployeeBooking"
+            }
+          }
+        },
+        "useLexBotDropdown": true,
+        "lexV2BotName": "EmployeeBooking",
+        "lexV2BotAliasName": "EmployeeBookingProd",
+        "conditionMetadata": [
+          {
+            "id": "a3559654-03d0-46f1-a9a0-0da4236f7954",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "BookHotel"
+          },
+          {
+            "id": "438d9868-90d2-4fb9-a233-fc497b81dbaa",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "AgentSupport"
+          }
+        ]
+      },
+      "83ba529e-75e9-47b1-9835-1b5bd8c48583": {
+        "position": {
+          "x": 1716,
+          "y": 300.8
+        }
+      },
+      "2e576d16-9ecb-4a01-afd0-4e6299c8615d": {
+        "position": {
+          "x": 404.8,
+          "y": 186.4
+        }
+      },
+      "9a218689-b609-4dc0-ab3c-4dbb3eeb2297": {
+        "position": {
+          "x": 406.4,
+          "y": 448.8
+        }
+      },
+      "9793f042-3890-4be2-b9c5-963516599ccd": {
+        "position": {
+          "x": 413.6,
+          "y": -99.2
+        }
+      },
+      "1ebcc62e-e569-449d-b61d-ad5787319ba9": {
+        "position": {
+          "x": 1170.4,
+          "y": 56
+        },
+        "parameters": {
+          "ContactFlowId": {
+            "displayName": "EmployeeBooking_TransferToQueue"
+          }
+        },
+        "ContactFlow": {
+          "text": "EmployeeBooking_TransferToQueue"
+        }
+      },
+      "3ea93ff8-8d6c-4f28-92b6-49e45ede4cda": {
+        "position": {
+          "x": 668,
+          "y": 367.2
+        },
+        "dynamicParams": []
+      },
+      "912a72ce-c4e2-4655-9baf-302f6b8b7b0c": {
+        "position": {
+          "x": 645.6,
+          "y": -138.4
+        },
+        "dynamicParams": []
+      },
+      "b9da0f98-4651-4cdc-9580-6443a7b3cd11": {
+        "position": {
+          "x": 1476.8,
+          "y": 109.6
+        }
+      },
+      "fd6e709f-7aec-42ca-a3b1-72755303b350": {
+        "position": {
+          "x": 939.2,
+          "y": 86.4
+        },
+        "conditionMetadata": [
+          {
+            "id": "d8734c17-e5c5-4fd8-bfd3-794005b8699b",
+            "value": "1"
+          }
+        ]
+      }
+    },
+    "Annotations": [],
+    "name": "EmployeeBooking_LexBot",
+    "description": "contact flow that integrates our lex bot into contact center",
+    "type": "contactFlow",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {
+        "Text": "How can I help you today?",
+        "LexV2Bot": {
+          "AliasArn": "arn:aws:lex:us-east-1:290074911549:bot-alias/JH0VMDRIMV/2N1CGNKBTU"
+        }
+      },
+      "Identifier": "5fc97b24-1aab-43b6-9412-75f24166e933",
+      "Type": "ConnectParticipantWithLexBot",
+      "Transitions": {
+        "NextAction": "9a218689-b609-4dc0-ab3c-4dbb3eeb2297",
+        "Conditions": [
+          {
+            "NextAction": "9793f042-3890-4be2-b9c5-963516599ccd",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "BookHotel"
+              ]
+            }
+          },
+          {
+            "NextAction": "1ebcc62e-e569-449d-b61d-ad5787319ba9",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "AgentSupport"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "2e576d16-9ecb-4a01-afd0-4e6299c8615d",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "9a218689-b609-4dc0-ab3c-4dbb3eeb2297",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {},
+      "Identifier": "83ba529e-75e9-47b1-9835-1b5bd8c48583",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "Text": "Sorry, I did not understand you."
+      },
+      "Identifier": "2e576d16-9ecb-4a01-afd0-4e6299c8615d",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "3ea93ff8-8d6c-4f28-92b6-49e45ede4cda",
+        "Errors": [
+          {
+            "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We are experiencing technical difficulties."
+      },
+      "Identifier": "9a218689-b609-4dc0-ab3c-4dbb3eeb2297",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "3ea93ff8-8d6c-4f28-92b6-49e45ede4cda",
+        "Errors": [
+          {
+            "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "Thank you for using our service to book a hotel."
+      },
+      "Identifier": "9793f042-3890-4be2-b9c5-963516599ccd",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "912a72ce-c4e2-4655-9baf-302f6b8b7b0c",
+        "Errors": [
+          {
+            "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "ContactFlowId": "arn:aws:connect:us-east-1:290074911549:instance/18a38198-3541-45bf-92b7-1ca463a0eb4f/contact-flow/0dc45683-9fc0-4214-8c61-479c4c87bcf0"
+      },
+      "Identifier": "1ebcc62e-e569-449d-b61d-ad5787319ba9",
+      "Type": "TransferToFlow",
+      "Transitions": {
+        "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+        "Errors": [
+          {
+            "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "BookingResult": "Unsuccessful"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "3ea93ff8-8d6c-4f28-92b6-49e45ede4cda",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "fd6e709f-7aec-42ca-a3b1-72755303b350",
+        "Errors": [
+          {
+            "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "BookingResult": "Success"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "912a72ce-c4e2-4655-9baf-302f6b8b7b0c",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "fd6e709f-7aec-42ca-a3b1-72755303b350",
+        "Errors": [
+          {
+            "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "We are sorry, an error occurred. Please try again later."
+      },
+      "Identifier": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "83ba529e-75e9-47b1-9835-1b5bd8c48583",
+        "Errors": [
+          {
+            "NextAction": "83ba529e-75e9-47b1-9835-1b5bd8c48583",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5",
+        "Text": "If you would like to speak to an agent, please press 1."
+      },
+      "Identifier": "fd6e709f-7aec-42ca-a3b1-72755303b350",
+      "Type": "GetParticipantInput",
+      "Transitions": {
+        "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+        "Conditions": [
+          {
+            "NextAction": "1ebcc62e-e569-449d-b61d-ad5787319ba9",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "b9da0f98-4651-4cdc-9580-6443a7b3cd11",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}
