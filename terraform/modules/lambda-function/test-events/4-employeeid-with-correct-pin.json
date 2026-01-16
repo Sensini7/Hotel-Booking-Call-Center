@@ -1,0 +1,10 @@
+{
+  "Details": {
+    "ContactData": {},
+    "Parameters": {
+      "EmployeeID": "101",
+      "EmployeePIN": "111"
+    }
+  },
+  "Name": "ContactFlowEvent"
+}

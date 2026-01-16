@@ -1,0 +1,10 @@
+{
+  "Details": {
+    "ContactData": {},
+    "Parameters": {
+      "PhoneNumber": "+18285282177",
+      "EmployeePIN": "111"
+    }
+  },
+  "Name": "ContactFlowEvent"
+}
