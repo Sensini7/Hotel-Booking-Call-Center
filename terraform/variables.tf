@@ -93,8 +93,8 @@ variable "employee_name" {
   default     = "peleke"
 }
 
-variable "employee_phone_number" {
+variable "sample_employee_phone_number" {
   description = "Phone number for the sample employee in DynamoDB (E.164 format)"
   type        = string
-  default     = ""
+  default     = "+18285282177"
 }
