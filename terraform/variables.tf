@@ -73,3 +73,28 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+# DynamoDB Table Variables
+variable "dynamodb_table_name" {
+  description = "Name of the DynamoDB table for employee data"
+  type        = string
+  default     = "Employee"
+}
+
+variable "employee_email" {
+  description = "Email address for the sample employee in DynamoDB"
+  type        = string
+  default     = "peleke@gmail.com"
+}
+
+variable "employee_name" {
+  description = "Name for the sample employee in DynamoDB"
+  type        = string
+  default     = "peleke"
+}
+
+variable "employee_phone_number" {
+  description = "Phone number for the sample employee in DynamoDB (E.164 format)"
+  type        = string
+  default     = ""
+}

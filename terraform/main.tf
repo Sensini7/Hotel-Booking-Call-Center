@@ -158,10 +158,10 @@ module "lambda_role" {
 module "dynamodb_table" {
   source = "./modules/dynamodb-table"
 
-  table_name            = "Employee"
-  sample_employee_email = "peleke@gmail.com"
-  sample_employee_name  = "peleke"
-  sample_employee_phone = var.user_phone_number != null ? var.user_phone_number : ""
+  table_name            = var.dynamodb_table_name
+  sample_employee_email = var.employee_email
+  sample_employee_name  = var.employee_name
+  sample_employee_phone = var.employee_phone_number
 
   tags = var.tags
 }
