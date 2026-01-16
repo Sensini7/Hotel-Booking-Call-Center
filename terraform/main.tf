@@ -146,6 +146,14 @@ module "routing_profile" {
   ]
 }
 
+# Lambda IAM Role
+module "lambda_role" {
+  source = "./modules/lambda-role"
+
+  policy_name = "Lambda_EmployeeBooking"
+  role_name   = "Lambda_EmployeeBooking"
+}
+
 # User
 module "user" {
   source = "./modules/user"
