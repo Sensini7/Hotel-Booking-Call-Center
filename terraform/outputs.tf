@@ -27,3 +27,33 @@ output "user_arn" {
   description = "The ARN of the user"
   value       = module.user.user_arn
 }
+
+output "lambda_role_arn" {
+  description = "The ARN of the Lambda IAM role"
+  value       = module.lambda_role.role_arn
+}
+
+output "lambda_role_name" {
+  description = "The name of the Lambda IAM role"
+  value       = module.lambda_role.role_name
+}
+
+output "lambda_policy_arn" {
+  description = "The ARN of the Lambda IAM policy"
+  value       = module.lambda_role.policy_arn
+}
+
+output "dynamodb_table_name" {
+  description = "The name of the DynamoDB Employee table"
+  value       = module.dynamodb_table.table_name
+}
+
+output "dynamodb_table_arn" {
+  description = "The ARN of the DynamoDB Employee table"
+  value       = module.dynamodb_table.table_arn
+}
+
+output "dynamodb_gsi_name" {
+  description = "The name of the DynamoDB PhoneNumber GSI"
+  value       = module.dynamodb_table.gsi_name
+}

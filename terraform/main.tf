@@ -154,6 +154,18 @@ module "lambda_role" {
   role_name   = "Lambda_EmployeeBooking"
 }
 
+# DynamoDB Table
+module "dynamodb_table" {
+  source = "./modules/dynamodb-table"
+
+  table_name            = "Employee"
+  sample_employee_email = "peleke@gmail.com"
+  sample_employee_name  = "peleke"
+  sample_employee_phone = var.user_phone_number != null ? var.user_phone_number : ""
+
+  tags = var.tags
+}
+
 # User
 module "user" {
   source = "./modules/user"
