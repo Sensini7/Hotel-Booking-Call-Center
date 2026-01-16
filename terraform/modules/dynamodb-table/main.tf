@@ -44,7 +44,7 @@ resource "aws_dynamodb_table_item" "sample_employee" {
       S = var.sample_employee_name
     }
     PhoneNumber = {
-      S = var.sample_employee_phone
+      S = var.sample_employee_phone_number
     }
   })
 }
