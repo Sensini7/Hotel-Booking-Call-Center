@@ -58,10 +58,10 @@ variable "sample_employee_name" {
   default     = "peleke"
 }
 
-variable "sample_employee_phone" {
+variable "sample_employee_phone_number" {
   description = "Phone number for the sample employee in E.164 format"
   type        = string
-  default     = ""
+  default     = "+18285282177"
 }
 
 variable "tags" {

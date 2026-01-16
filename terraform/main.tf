@@ -158,12 +158,28 @@ module "lambda_role" {
 module "dynamodb_table" {
   source = "./modules/dynamodb-table"
 
-  table_name            = var.dynamodb_table_name
-  sample_employee_email = var.employee_email
-  sample_employee_name  = var.employee_name
-  sample_employee_phone = var.sample_employee_phone_number
+  table_name                    = var.dynamodb_table_name
+  sample_employee_email         = var.employee_email
+  sample_employee_name          = var.employee_name
+  sample_employee_phone_number  = var.sample_employee_phone_number
 
   tags = var.tags
+}
+
+# Lambda Function
+module "lambda_function" {
+  source = "./modules/lambda-function"
+
+  function_name        = "EmployeeBooking_DBLookup"
+  role_arn             = module.lambda_role.role_arn
+  dynamodb_table_name  = var.dynamodb_table_name
+
+  tags = var.tags
+
+  depends_on = [
+    module.lambda_role,
+    module.dynamodb_table
+  ]
 }
 
 # User
