@@ -31,9 +31,15 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
           terraform_wrapper: false
 
-      - name: Create Lambda Deployment Package
+      - name: Create Lambda Deployment Packages
         run: |
+          echo "Creating DB Lookup Lambda package..."
           cd terraform/modules/lambda-function
+          python -m zipfile -c lambda_function.zip lambda_function.py
+          ls -la lambda_function.zip
+
+          echo "Creating Lex Lambda package..."
+          cd ../lex-lambda-function
           python -m zipfile -c lambda_function.zip lambda_function.py
           ls -la lambda_function.zip
 
@@ -103,9 +109,15 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
           terraform_wrapper: false
 
-      - name: Create Lambda Deployment Package
+      - name: Create Lambda Deployment Packages
         run: |
+          echo "Creating DB Lookup Lambda package..."
           cd terraform/modules/lambda-function
+          python -m zipfile -c lambda_function.zip lambda_function.py
+          ls -la lambda_function.zip
+
+          echo "Creating Lex Lambda package..."
+          cd ../lex-lambda-function
           python -m zipfile -c lambda_function.zip lambda_function.py
           ls -la lambda_function.zip
 

@@ -72,3 +72,28 @@ output "lambda_function_invoke_arn" {
   description = "The invoke ARN of the Lambda function"
   value       = module.lambda_function.function_invoke_arn
 }
+
+output "lex_dynamodb_table_name" {
+  description = "The name of the Lex hotel bookings DynamoDB table"
+  value       = module.lex_dynamodb_table.table_name
+}
+
+output "lex_dynamodb_table_arn" {
+  description = "The ARN of the Lex hotel bookings DynamoDB table"
+  value       = module.lex_dynamodb_table.table_arn
+}
+
+output "lex_lambda_function_name" {
+  description = "The name of the Lex Lambda function"
+  value       = module.lex_lambda_function.function_name
+}
+
+output "lex_lambda_function_arn" {
+  description = "The ARN of the Lex Lambda function"
+  value       = module.lex_lambda_function.function_arn
+}
+
+output "lex_lambda_function_invoke_arn" {
+  description = "The invoke ARN of the Lex Lambda function"
+  value       = module.lex_lambda_function.function_invoke_arn
+}

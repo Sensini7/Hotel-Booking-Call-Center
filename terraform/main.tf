@@ -166,7 +166,7 @@ module "dynamodb_table" {
   tags = var.tags
 }
 
-# Lambda Function
+# Lambda Function for DB Lookup
 module "lambda_function" {
   source = "./modules/lambda-function"
 
@@ -179,6 +179,31 @@ module "lambda_function" {
   depends_on = [
     module.lambda_role,
     module.dynamodb_table
+  ]
+}
+
+# DynamoDB Table for Lex Hotel Bookings
+module "lex_dynamodb_table" {
+  source = "./modules/lex-dynamodb-table"
+
+  table_name = "LexBookHotel"
+
+  tags = var.tags
+}
+
+# Lambda Function for Lex Hotel Booking
+module "lex_lambda_function" {
+  source = "./modules/lex-lambda-function"
+
+  function_name            = "EmployeeBooking_LexBookHotel"
+  role_arn                 = module.lambda_role.role_arn
+  lex_dynamodb_table_name  = "LexBookHotel"
+
+  tags = var.tags
+
+  depends_on = [
+    module.lambda_role,
+    module.lex_dynamodb_table
   ]
 }
 

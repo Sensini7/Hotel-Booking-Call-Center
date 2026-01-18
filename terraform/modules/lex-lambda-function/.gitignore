@@ -1,0 +1,2 @@
+# Ignore generated Lambda deployment package
+lambda_function.zip
