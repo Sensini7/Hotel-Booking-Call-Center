@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Connect CCP</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #232f3e;
+            margin-bottom: 20px;
+        }
+
+        .ccp-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        #containerDiv {
+            width: 420px;
+            min-width: 420px;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .info-panel {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+
+        .status.error {
+            background-color: #ffebee;
+            border-left-color: #f44336;
+        }
+
+        .event-log {
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .event-entry {
+            padding: 5px;
+            margin: 2px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .timestamp {
+            color: #666;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Amazon Connect Contact Control Panel</h1>
+
+        <div class="ccp-container">
+            <!-- CCP iframe will be embedded here -->
+            <div id="containerDiv"></div>
+
+            <!-- Information and Event Log Panel -->
+            <div class="info-panel">
+                <h2>Agent Status & Events</h2>
+                <div id="status" class="status">Initializing...</div>
+
+                <h3>Event Log</h3>
+                <div id="eventLog" class="event-log">
+                    <div class="event-entry">
+                        <span class="timestamp">[Starting]</span> CCP initialization in progress...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Amazon Connect Streams API -->
+    <script src="connect-streams-min.js"></script>
+
+    <script>
+        // Configuration - UPDATE THESE VALUES
+        const config = {
+            // Replace with your Amazon Connect instance URL
+            // Format: https://<instance-name>.my.connect.aws/ccp-v2
+            ccpUrl: 'https://YOUR-INSTANCE-NAME.my.connect.aws/ccp-v2',
+
+            // Replace with your instance region (e.g., 'us-east-1', 'us-west-2')
+            region: 'us-east-1',
+
+            // Optional: Set to false to disable login popup
+            loginPopup: true,
+
+            // Optional: Custom login URL for SAML authentication
+            // loginUrl: 'https://your-sso-login-url',
+
+            // Softphone settings
+            softphone: {
+                allowFramedSoftphone: true,  // Allow softphone in iframe
+                disableRingtone: false,        // Keep ringtone enabled
+                // ringtoneUrl: './custom-ringtone.mp3'  // Optional: custom ringtone
+            }
+        };
+
+        // Helper function to log events
+        function logEvent(message, type = 'info') {
+            const eventLog = document.getElementById('eventLog');
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = 'event-entry';
+            entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+            eventLog.appendChild(entry);
+            eventLog.scrollTop = eventLog.scrollHeight;
+            console.log(`[${timestamp}] ${message}`);
+        }
+
+        // Helper function to update status
+        function updateStatus(message, isError = false) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = isError ? 'status error' : 'status';
+        }
+
+        // Initialize Amazon Connect CCP
+        try {
+            logEvent('Initializing Amazon Connect Streams API...');
+
+            connect.core.initCCP(document.getElementById('containerDiv'), {
+                ccpUrl: config.ccpUrl,
+                region: config.region,
+                loginPopup: config.loginPopup,
+                softphone: config.softphone
+            });
+
+            logEvent('CCP initialization request sent successfully');
+            updateStatus('CCP Initialized - Waiting for agent login...');
+
+            // Subscribe to agent events
+            connect.agent(function(agent) {
+                logEvent(`Agent connected: ${agent.getName()}`);
+                updateStatus(`Agent: ${agent.getName()} | Status: ${agent.getState().name}`);
+
+                // Agent state change event
+                agent.onStateChange(function(agentStateChange) {
+                    const newState = agentStateChange.newState;
+                    logEvent(`Agent state changed to: ${newState}`);
+                    updateStatus(`Agent: ${agent.getName()} | Status: ${newState}`);
+                });
+
+                // Agent routable state change
+                agent.onRoutable(function(routableAgent) {
+                    logEvent('Agent is now routable (Available for contacts)');
+                });
+
+                // Agent not routable
+                agent.onNotRoutable(function(notRoutableAgent) {
+                    logEvent('Agent is not routable');
+                });
+
+                // Agent offline
+                agent.onOffline(function(offlineAgent) {
+                    logEvent('Agent went offline');
+                    updateStatus('Agent: Offline', true);
+                });
+
+                // After call work
+                agent.onAfterCallWork(function(acwAgent) {
+                    logEvent('Agent entered After Call Work (ACW)');
+                });
+
+                logEvent(`Agent permissions: ${JSON.stringify(agent.getPermissions())}`);
+            });
+
+            // Subscribe to contact events
+            connect.contact(function(contact) {
+                const contactId = contact.getContactId();
+                logEvent(`New contact detected: ${contactId}`);
+
+                // Contact connecting
+                contact.onConnecting(function(contact) {
+                    logEvent(`Contact ${contactId} is connecting...`);
+                });
+
+                // Contact connected
+                contact.onConnected(function(contact) {
+                    logEvent(`Contact ${contactId} connected`);
+                    const attributes = contact.getAttributes();
+                    logEvent(`Contact attributes: ${JSON.stringify(attributes)}`);
+                });
+
+                // Contact accepted
+                contact.onAccepted(function(contact) {
+                    logEvent(`Contact ${contactId} accepted by agent`);
+                });
+
+                // Contact ended
+                contact.onEnded(function(contact) {
+                    logEvent(`Contact ${contactId} ended`);
+                });
+
+                // After call work started
+                contact.onACW(function(contact) {
+                    logEvent(`After Call Work started for contact ${contactId}`);
+                });
+
+                // Contact missed
+                contact.onMissed(function(contact) {
+                    logEvent(`Contact ${contactId} was missed`, 'warning');
+                });
+
+                // Get initial contact info
+                const contactType = contact.getType();
+                const contactState = contact.getState().type;
+                logEvent(`Contact type: ${contactType}, State: ${contactState}`);
+            });
+
+            // Error handling
+            connect.core.onAuthFail(function() {
+                logEvent('Authentication failed', 'error');
+                updateStatus('Authentication Failed', true);
+            });
+
+            connect.core.onAccessDenied(function() {
+                logEvent('Access denied', 'error');
+                updateStatus('Access Denied', true);
+            });
+
+        } catch (error) {
+            logEvent(`Error initializing CCP: ${error.message}`, 'error');
+            updateStatus(`Error: ${error.message}`, true);
+            console.error('CCP Initialization Error:', error);
+        }
+
+        // Additional helpful information
+        logEvent('CCP Configuration:');
+        logEvent(`  - CCP URL: ${config.ccpUrl}`);
+        logEvent(`  - Region: ${config.region}`);
+        logEvent(`  - Allow Framed Softphone: ${config.softphone.allowFramedSoftphone}`);
+        logEvent('Ready to receive Amazon Connect events');
+    </script>
+</body>
+</html>
