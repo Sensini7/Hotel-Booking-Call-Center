@@ -43,6 +43,11 @@ jobs:
           python -m zipfile -c lambda_function.zip lambda_function.py
           ls -la lambda_function.zip
 
+          echo "Creating SES Lambda package..."
+          cd ../ses-lambda-function
+          python -m zipfile -c lambda_function.zip lambda_function.py
+          ls -la lambda_function.zip
+
       - name: Terraform Format Check
         id: fmt
         run: terraform fmt -check -recursive
@@ -118,6 +123,11 @@ jobs:
 
           echo "Creating Lex Lambda package..."
           cd ../lex-lambda-function
+          python -m zipfile -c lambda_function.zip lambda_function.py
+          ls -la lambda_function.zip
+
+          echo "Creating SES Lambda package..."
+          cd ../ses-lambda-function
           python -m zipfile -c lambda_function.zip lambda_function.py
           ls -la lambda_function.zip
 

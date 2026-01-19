@@ -97,3 +97,33 @@ output "lex_lambda_function_invoke_arn" {
   description = "The invoke ARN of the Lex Lambda function"
   value       = module.lex_lambda_function.function_invoke_arn
 }
+
+output "ses_lambda_role_arn" {
+  description = "The ARN of the SES Lambda IAM role"
+  value       = module.ses_lambda_role.role_arn
+}
+
+output "ses_lambda_role_name" {
+  description = "The name of the SES Lambda IAM role"
+  value       = module.ses_lambda_role.role_name
+}
+
+output "ses_lambda_policy_arn" {
+  description = "The ARN of the SES Lambda IAM policy"
+  value       = module.ses_lambda_role.policy_arn
+}
+
+output "ses_lambda_function_name" {
+  description = "The name of the SES Lambda function"
+  value       = module.ses_lambda_function.function_name
+}
+
+output "ses_lambda_function_arn" {
+  description = "The ARN of the SES Lambda function"
+  value       = module.ses_lambda_function.function_arn
+}
+
+output "ses_lambda_function_invoke_arn" {
+  description = "The invoke ARN of the SES Lambda function"
+  value       = module.ses_lambda_function.function_invoke_arn
+}

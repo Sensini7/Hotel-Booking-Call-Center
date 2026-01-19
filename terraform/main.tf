@@ -146,12 +146,20 @@ module "routing_profile" {
   ]
 }
 
-# Lambda IAM Role
+# Lambda IAM Role for DynamoDB
 module "lambda_role" {
   source = "./modules/lambda-role"
 
   policy_name = "Lambda_EmployeeBooking"
   role_name   = "Lambda_EmployeeBooking"
+}
+
+# Lambda IAM Role for SES
+module "ses_lambda_role" {
+  source = "./modules/ses-lambda-role"
+
+  policy_name = "Lambda_EmployeeBooking_SES"
+  role_name   = "Lambda_EmployeeBooking_SES"
 }
 
 # DynamoDB Table
@@ -205,6 +213,19 @@ module "lex_lambda_function" {
     module.lambda_role,
     module.lex_dynamodb_table
   ]
+}
+
+# Lambda Function for SES Email Confirmations
+module "ses_lambda_function" {
+  source = "./modules/ses-lambda-function"
+
+  function_name  = "EmployeeBooking_SES"
+  role_arn       = module.ses_lambda_role.role_arn
+  sender_email   = var.ses_sender_email
+
+  tags = var.tags
+
+  depends_on = [module.ses_lambda_role]
 }
 
 # User

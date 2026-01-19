@@ -98,3 +98,10 @@ variable "sample_employee_phone_number" {
   type        = string
   default     = "+18285282177"
 }
+
+# SES Lambda Variables
+variable "ses_sender_email" {
+  description = "Verified SES sender email address for booking confirmations"
+  type        = string
+  default     = "noreply@example.com"
+}
