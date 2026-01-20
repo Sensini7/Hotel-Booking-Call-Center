@@ -127,3 +127,29 @@ output "ses_lambda_function_invoke_arn" {
   description = "The invoke ARN of the SES Lambda function"
   value       = module.ses_lambda_function.function_invoke_arn
 }
+
+# CCP Hosting Outputs
+output "ccp_s3_bucket_name" {
+  description = "The name of the S3 bucket hosting the CCP"
+  value       = module.s3_ccp_hosting.bucket_id
+}
+
+output "ccp_s3_bucket_arn" {
+  description = "The ARN of the S3 bucket hosting the CCP"
+  value       = module.s3_ccp_hosting.bucket_arn
+}
+
+output "ccp_cloudfront_distribution_id" {
+  description = "The ID of the CloudFront distribution for CCP"
+  value       = module.cloudfront_ccp.cloudfront_distribution_id
+}
+
+output "ccp_cloudfront_domain_name" {
+  description = "The domain name of the CloudFront distribution for CCP"
+  value       = module.cloudfront_ccp.cloudfront_domain_name
+}
+
+output "ccp_cloudfront_url" {
+  description = "The full HTTPS URL of the CloudFront distribution for CCP"
+  value       = module.cloudfront_ccp.cloudfront_url
+}

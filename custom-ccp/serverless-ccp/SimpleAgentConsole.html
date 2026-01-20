@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Agent Console - Amazon Connect</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #232f3e;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .main-container {
+            display: flex;
+            height: calc(100vh - 50px);
+        }
+
+        .ccp-panel {
+            width: 420px;
+            min-width: 420px;
+            background-color: white;
+            border-right: 2px solid #ddd;
+        }
+
+        #ccpDiv {
+            width: 100%;
+            height: 100%;
+        }
+
+        .contact-panel {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .info-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .info-section h2 {
+            margin-top: 0;
+            color: #232f3e;
+            border-bottom: 2px solid #ff9900;
+            padding-bottom: 10px;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: bold;
+            width: 150px;
+            color: #666;
+        }
+
+        .info-value {
+            flex: 1;
+            color: #232f3e;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-available {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .status-offline {
+            background-color: #9e9e9e;
+            color: white;
+        }
+
+        .status-acw {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .status-calling {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .event-log {
+            max-height: 300px;
+            overflow-y: auto;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .event-entry {
+            padding: 5px;
+            margin: 3px 0;
+            border-left: 3px solid #ff9900;
+            padding-left: 10px;
+            background-color: white;
+        }
+
+        .timestamp {
+            color: #666;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .no-contact {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        Simple Agent Console - Amazon Connect
+    </div>
+
+    <div class="main-container">
+        <!-- CCP Panel (Left) -->
+        <div class="ccp-panel">
+            <div id="ccpDiv"></div>
+        </div>
+
+        <!-- Contact Details Panel (Right) -->
+        <div class="contact-panel">
+            <!-- Agent Status Section -->
+            <div class="info-section">
+                <h2>Agent Status</h2>
+                <div class="info-row">
+                    <div class="info-label">Agent Name:</div>
+                    <div class="info-value" id="agentName">Not logged in</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Status:</div>
+                    <div class="info-value">
+                        <span id="agentStatus" class="status-badge status-offline">Offline</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Agent Extension:</div>
+                    <div class="info-value" id="agentExtension">-</div>
+                </div>
+            </div>
+
+            <!-- Contact Details Section -->
+            <div class="info-section">
+                <h2>Contact Details</h2>
+                <div id="contactDetails">
+                    <div class="no-contact">No active contact</div>
+                </div>
+            </div>
+
+            <!-- Event Log Section -->
+            <div class="info-section">
+                <h2>Event Log</h2>
+                <div class="event-log" id="eventLog">
+                    <div class="event-entry">
+                        <span class="timestamp">[Starting]</span> Initializing CCP...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Amazon Connect Streams API -->
+    <script src="connect-streams-min.js"></script>
+
+    <script>
+        // Configuration - REPLACE WITH YOUR INSTANCE URL
+        const instanceUrl = 'https://YOUR-INSTANCE-NAME.my.connect.aws/ccp-v2';
+        const region = 'us-east-1';  // Change to your region
+
+        // Global variables
+        let currentAgent = null;
+        let currentContact = null;
+
+        // Helper function to log events
+        function logEvent(message) {
+            const eventLog = document.getElementById('eventLog');
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = 'event-entry';
+            entry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
+            eventLog.appendChild(entry);
+            eventLog.scrollTop = eventLog.scrollHeight;
+            console.log(`[${timestamp}] ${message}`);
+        }
+
+        // Update agent status display
+        function updateAgentStatus(agent) {
+            const agentState = agent.getState();
+            const statusElement = document.getElementById('agentStatus');
+
+            document.getElementById('agentName').textContent = agent.getName();
+
+            const ext = agent.getExtension();
+            document.getElementById('agentExtension').textContent = ext || '-';
+
+            const stateName = agentState.name;
+            statusElement.textContent = stateName;
+
+            // Update badge color based on status
+            statusElement.className = 'status-badge';
+            if (stateName === 'Available') {
+                statusElement.classList.add('status-available');
+            } else if (stateName === 'Offline') {
+                statusElement.classList.add('status-offline');
+            } else if (stateName === 'AfterCallWork') {
+                statusElement.classList.add('status-acw');
+            } else {
+                statusElement.classList.add('status-calling');
+            }
+
+            logEvent(`Agent status changed to: ${stateName}`);
+        }
+
+        // Display contact details
+        function displayContactDetails(contact) {
+            const contactDetails = document.getElementById('contactDetails');
+
+            const contactId = contact.getContactId();
+            const attributes = contact.getAttributes();
+            const connections = contact.getConnections();
+
+            // Get customer phone number
+            let customerNumber = 'Unknown';
+            let customerName = 'Unknown';
+
+            const initialConnection = contact.getInitialConnection();
+            if (initialConnection) {
+                const endpoint = initialConnection.getEndpoint();
+                if (endpoint) {
+                    customerNumber = endpoint.phoneNumber || 'Unknown';
+                }
+            }
+
+            // Try to get customer name from attributes
+            if (attributes && attributes.customerName) {
+                customerName = attributes.customerName.value;
+            }
+
+            const contactType = contact.getType();
+            const contactState = contact.getStatus().type;
+
+            contactDetails.innerHTML = `
+                <div class="info-row">
+                    <div class="info-label">Contact ID:</div>
+                    <div class="info-value">${contactId}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Contact Type:</div>
+                    <div class="info-value">${contactType}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">State:</div>
+                    <div class="info-value">${contactState}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Customer Name:</div>
+                    <div class="info-value">${customerName}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Phone Number:</div>
+                    <div class="info-value">${customerNumber}</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Queue:</div>
+                    <div class="info-value">${contact.getQueue() ? contact.getQueue().name : 'N/A'}</div>
+                </div>
+            `;
+        }
+
+        // Clear contact details
+        function clearContactDetails() {
+            const contactDetails = document.getElementById('contactDetails');
+            contactDetails.innerHTML = '<div class="no-contact">No active contact</div>';
+        }
+
+        // Initialize Amazon Connect CCP
+        try {
+            logEvent('Initializing Amazon Connect Streams API...');
+
+            connect.core.initCCP(document.getElementById('ccpDiv'), {
+                ccpUrl: instanceUrl,
+                region: region,
+                loginPopup: true,
+                softphone: {
+                    allowFramedSoftphone: true,
+                    disableRingtone: false
+                }
+            });
+
+            logEvent('CCP initialization complete');
+
+            // Subscribe to agent events
+            connect.agent(function(agent) {
+                currentAgent = agent;
+                logEvent(`Agent connected: ${agent.getName()}`);
+                updateAgentStatus(agent);
+
+                // Subscribe to agent state changes
+                agent.onStateChange(function(agentStateChange) {
+                    logEvent(`Agent state changed`);
+                    updateAgentStatus(agent);
+                });
+
+                // Subscribe to routable state changes
+                agent.onRoutable(function(routableAgent) {
+                    logEvent('Agent is now routable');
+                });
+
+                agent.onNotRoutable(function(notRoutableAgent) {
+                    logEvent('Agent is now not routable');
+                });
+
+                // Subscribe to after call work
+                agent.onAfterCallWork(function(acwAgent) {
+                    logEvent('Agent entered After Call Work (ACW)');
+                });
+            });
+
+            // Subscribe to contact events
+            connect.contact(function(contact) {
+                currentContact = contact;
+                logEvent(`New contact detected: ${contact.getContactId()}`);
+
+                // Display contact details when contact arrives
+                displayContactDetails(contact);
+
+                // Subscribe to contact state changes
+                contact.onConnecting(function(contact) {
+                    logEvent('Contact connecting...');
+                    displayContactDetails(contact);
+                });
+
+                contact.onConnected(function(contact) {
+                    logEvent('Contact connected');
+                    displayContactDetails(contact);
+                });
+
+                contact.onAccepted(function(contact) {
+                    logEvent('Contact accepted by agent');
+                    displayContactDetails(contact);
+                });
+
+                contact.onEnded(function(contact) {
+                    logEvent('Contact ended');
+                    clearContactDetails();
+                    currentContact = null;
+                });
+
+                contact.onACW(function(contact) {
+                    logEvent('Contact in ACW state');
+                });
+
+                // Subscribe to contact attributes
+                contact.onRefresh(function(contact) {
+                    if (currentContact) {
+                        displayContactDetails(contact);
+                    }
+                });
+            });
+
+            logEvent('Event subscriptions registered successfully');
+
+        } catch (error) {
+            logEvent(`ERROR: ${error.message}`);
+            console.error('CCP Initialization Error:', error);
+        }
+    </script>
+</body>
+</html>

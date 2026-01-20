@@ -228,6 +228,50 @@ module "ses_lambda_function" {
   depends_on = [module.ses_lambda_role]
 }
 
+# S3 Bucket for CCP Hosting
+module "s3_ccp_hosting" {
+  source = "./modules/s3-ccp-hosting"
+
+  bucket_name = var.ccp_bucket_name
+
+  tags = var.tags
+}
+
+# CloudFront Distribution for CCP
+module "cloudfront_ccp" {
+  source = "./modules/cloudfront-ccp"
+
+  bucket_id                   = module.s3_ccp_hosting.bucket_id
+  bucket_arn                  = module.s3_ccp_hosting.bucket_arn
+  bucket_regional_domain_name = module.s3_ccp_hosting.bucket_domain_name
+
+  tags = var.tags
+
+  depends_on = [module.s3_ccp_hosting]
+}
+
+# S3 Bucket Policy for CloudFront OAI Access
+resource "aws_s3_bucket_policy" "ccp_hosting" {
+  bucket = module.s3_ccp_hosting.bucket_id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowCloudFrontOAI"
+        Effect = "Allow"
+        Principal = {
+          AWS = module.cloudfront_ccp.oai_arn
+        }
+        Action   = "s3:GetObject"
+        Resource = "${module.s3_ccp_hosting.bucket_arn}/*"
+      }
+    ]
+  })
+
+  depends_on = [module.cloudfront_ccp]
+}
+
 # User
 module "user" {
   source = "./modules/user"

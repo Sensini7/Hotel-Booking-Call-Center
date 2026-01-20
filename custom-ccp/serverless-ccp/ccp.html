@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Connect CCP</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #ccpDiv {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="ccpDiv"></div>
+
+    <!-- Include Amazon Connect Streams API -->
+    <script src="connect-streams-min.js"></script>
+
+    <script>
+        // Configuration - REPLACE WITH YOUR INSTANCE URL
+        const instanceUrl = 'https://YOUR-INSTANCE-NAME.my.connect.aws/ccp-v2';
+        const region = 'us-east-1';  // Change to your region
+
+        // Initialize Amazon Connect CCP
+        connect.core.initCCP(document.getElementById('ccpDiv'), {
+            ccpUrl: instanceUrl,
+            region: region,
+            loginPopup: true,
+            softphone: {
+                allowFramedSoftphone: true,
+                disableRingtone: false
+            }
+        });
+    </script>
+</body>
+</html>

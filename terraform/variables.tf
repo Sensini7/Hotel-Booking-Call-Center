@@ -105,3 +105,10 @@ variable "ses_sender_email" {
   type        = string
   default     = "noreply@example.com"
 }
+
+# CCP Hosting Variables
+variable "ccp_bucket_name" {
+  description = "Name of the S3 bucket for hosting the Custom CCP"
+  type        = string
+  default     = "sensini-hotel-booking-ccp-hosting"
+}
