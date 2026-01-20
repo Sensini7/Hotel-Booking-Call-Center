@@ -8,13 +8,14 @@ Adds database-driven employee lookup with PIN authentication. Builds on `Amazon-
 ## What's New in This Branch
 
 **Added:**
+- ✅ **New Contact Flows** - 4 flows for Lambda integration and authentication
 - ✅ **Lambda IAM Role** - Permissions for DynamoDB and CloudWatch Logs
 - ✅ **DynamoDB Employee Table** - Stores employee data with PhoneNumber GSI
 - ✅ **Lambda Function** (EmployeeBooking_DBLookup) - Employee lookup and PIN validation
 - ✅ **Test Events** - 5 Lambda test scenarios
 
 **Inherited from previous branches:**
-- Contact Flows, Lex Bot (EmployeeBooking)
+- Original 3 Contact Flows, Lex Bot (EmployeeBooking)
 - Hours of Operation, Queues, Routing Profile, Agent User
 
 **Not Yet Included:**
@@ -26,7 +27,15 @@ Adds database-driven employee lookup with PIN authentication. Builds on `Amazon-
 
 ```
 .
-├── Contact Flows/
+├── Contact Flows/                      # 8 total flows
+│   ├── Default customer queue.json
+│   ├── EmployeeBooking_MainFlow.json
+│   ├── EmployeeBooking_TransferToQueue.json
+│   ├── EmployeeBooking_AgentWhisper.json               # NEW
+│   ├── EmployeeBooking_Authentication.json             # NEW
+│   ├── EmployeeBooking_LexBot.json                     # NEW
+│   ├── EmployeeBooking_MainFlow_lexintegration.json    # NEW
+│   └── EmployeeBooking_TransferToQueue_WhisperflowIntegrated.json  # NEW
 ├── Lex Bots/
 ├── terraform/
 │   └── modules/
@@ -42,6 +51,53 @@ Adds database-driven employee lookup with PIN authentication. Builds on `Amazon-
 │       └── user/
 └── .github/workflows/
 ```
+
+## New Contact Flows
+
+### 1. EmployeeBooking_Authentication
+**Purpose**: Employee authentication using Lambda DBLookup
+
+**Flow Logic:**
+- Retrieves caller phone number
+- Invokes Lambda with phone number
+- Branches based on EmployeeType:
+  - AUTHENTICATED (1) → Sets employee attributes, continues
+  - PIN_REQUIRED (2) → Prompts for PIN, re-invokes Lambda
+  - UNKNOWN (0) → Proceeds as unknown caller
+  - INCORRECT_PIN (3) → Proceeds as unknown caller
+
+### 2. EmployeeBooking_AgentWhisper
+**Purpose**: Whisper employee information to agent before connecting
+
+**Flow Logic:**
+- Plays employee name to agent
+- Plays "Connecting now" message
+- Returns to main flow
+
+### 3. EmployeeBooking_LexBot
+**Purpose**: Hotel booking using Lex bot
+
+**Flow Logic:**
+- Invokes Lex bot (EmployeeBooking)
+- Handles BookHotel intent responses
+- Transfers to agent on failure
+
+### 4. EmployeeBooking_MainFlow_lexintegration
+**Purpose**: Updated main flow with Lex integration
+
+**Flow Logic:**
+- Welcome message
+- Calls Authentication flow
+- If authenticated → Calls LexBot flow
+- If unknown → Transfers to Unknown queue
+
+### 5. EmployeeBooking_TransferToQueue_WhisperflowIntegrated
+**Purpose**: Transfer to queue with agent whisper
+
+**Flow Logic:**
+- Checks hours of operation
+- If authenticated → Calls AgentWhisper, transfers to Authenticated queue
+- If unknown → Transfers to Unknown queue
 
 ## New Infrastructure Components
 
