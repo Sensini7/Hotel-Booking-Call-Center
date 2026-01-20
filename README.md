@@ -1,122 +1,317 @@
-# Hotel-Booking-Call-Center
+# Hotel Booking Call Center - Dynamic Contact Flow
 
-Infrastructure as Code (IaC) components for Amazon Connect Hotel Booking Call Center using Terraform.
+> **Branch**: `Dynamic-Contact-Flow`
+> **Purpose**: Add Lambda and DynamoDB for employee authentication and dynamic call routing
 
-## Project Overview
+Adds database-driven employee lookup with PIN authentication. Builds on `Amazon-Lex-Integration`.
 
-This project contains Terraform infrastructure code to deploy and manage Amazon Connect resources for an Employee Booking call center system. The infrastructure includes:
+## What's New in This Branch
 
-- **Contact Flows**: Pre-configured flows for call handling
-- **Hours of Operation**: Business hours configuration
-- **Queues**: Call routing queues for authenticated and unknown callers
-- **Routing Profiles**: Agent routing configuration
-- **Users**: Agent user accounts for the CCP panel
+**Added:**
+- ✅ **Lambda IAM Role** - Permissions for DynamoDB and CloudWatch Logs
+- ✅ **DynamoDB Employee Table** - Stores employee data with PhoneNumber GSI
+- ✅ **Lambda Function** (EmployeeBooking_DBLookup) - Employee lookup and PIN validation
+- ✅ **Test Events** - 5 Lambda test scenarios
+
+**Inherited from previous branches:**
+- Contact Flows, Lex Bot (EmployeeBooking)
+- Hours of Operation, Queues, Routing Profile, Agent User
+
+**Not Yet Included:**
+- Lex Lambda integration (next branch)
+- SES email (later branch)
+- Custom CCP (later branch)
 
 ## Repository Structure
 
 ```
 .
-├── terraform/                    # Terraform infrastructure code
-│   ├── modules/                  # Reusable Terraform modules
-│   │   ├── hours-of-operation/  # Hours of operation module
-│   │   ├── queue/               # Queue module
-│   │   ├── routing-profile/     # Routing profile module
-│   │   └── user/                # User module
-│   ├── main.tf                  # Main Terraform configuration
-│   ├── variables.tf             # Variable definitions
-│   ├── outputs.tf               # Output values
-│   ├── backend.tf               # Backend configuration
-│   └── README.md                # Detailed Terraform documentation
-├── .github/
-│   └── workflows/
-│       └── terraform.yml        # GitHub Actions CI/CD workflow
-├── EmployeeBooking_MainFlow.json           # Main contact flow
-├── EmployeeBooking_TransferToQueue.json   # Transfer to queue flow
-├── Default customer queue.json             # Default queue flow
-└── README.md                    # This file
+├── Contact Flows/
+├── Lex Bots/
+├── terraform/
+│   └── modules/
+│       ├── lambda-role/                # NEW: Lambda IAM role
+│       ├── dynamodb-table/             # NEW: Employee table
+│       ├── lambda-function/            # NEW: DB lookup function
+│       │   ├── lambda_function.py
+│       │   ├── lambda_function.zip
+│       │   └── test-events/            # 5 test scenarios
+│       ├── hours-of-operation/
+│       ├── queue/
+│       ├── routing-profile/
+│       └── user/
+└── .github/workflows/
 ```
 
-## Quick Start
+## New Infrastructure Components
 
-1. **Prerequisites**
-   - AWS Account with Amazon Connect instance in `us-east-1`
-   - Terraform >= 1.0
-   - AWS CLI configured
-   - S3 bucket for Terraform state
+### 1. Lambda IAM Role
+**Name**: Lambda_EmployeeBooking
 
-2. **Configure Backend**
-   ```bash
-   cp terraform/backend.hcl.example terraform/backend.hcl
-   # Edit backend.hcl with your S3 bucket details
-   ```
+**Permissions:**
+- DynamoDB: GetItem, PutItem, Scan, Query
+- CloudWatch Logs: CreateLogGroup, CreateLogStream, PutLogEvents
 
-3. **Configure Variables**
-   ```bash
-   cp terraform/terraform.tfvars.example terraform/terraform.tfvars
-   # Edit terraform.tfvars with your values
-   ```
+### 2. DynamoDB Table
+**Name**: Employee
 
-4. **Deploy**
-   ```bash
-   cd terraform
-   terraform init -backend-config=backend.hcl
-   terraform plan
-   terraform apply
-   ```
+**Schema:**
+- **Partition Key**: EmployeeID (String)
+- **GSI**: PhoneNumber-index
+  - Partition Key: PhoneNumber (String)
+  - Projection: ALL
 
-## Contact Flows
+**Sample Item:**
+```json
+{
+  "EmployeeID": "101",
+  "EmployeePIN": "111",
+  "EmailAddress": "pelekengaih@gmail.com",
+  "EmployeeName": "Peleke Ngaih",
+  "PhoneNumber": "+18285282177"
+}
+```
 
-The project includes three pre-configured contact flows:
+### 3. Lambda Function
+**Name**: EmployeeBooking_DBLookup
+**Runtime**: Python 3.12
+**Memory**: 256 MB
+**Timeout**: 7 seconds
 
-1. **EmployeeBooking_MainFlow**: Main entry point that plays welcome message and transfers to queue
-2. **EmployeeBooking_TransferToQueue**: Checks hours of operation and transfers to appropriate queue
-3. **Default customer queue**: Handles customer wait experience with messages and music
+**Purpose**: Lookup employee by phone number or employee ID, validate PIN
 
-## Infrastructure Components
+**Input Parameters:**
+- `PhoneNumber` (optional) - Caller's phone number
+- `EmployeeID` (optional) - Employee ID for manual entry
+- `EmployeePIN` (optional) - PIN for authentication
 
-### Hours of Operation
-- **Name**: `EmployeeBooking_DefaultHours`
-- **Timezone**: Africa/Lagos
-- **Schedule**: Monday-Friday, 8:00 AM - 7:00 PM
+**Return Values:**
+- `EmployeeType`:
+  - `0` = UNKNOWN (no match found)
+  - `1` = AUTHENTICATED (PIN correct)
+  - `2` = PIN_REQUIRED (employee found, needs PIN)
+  - `3` = INCORRECT_PIN (PIN mismatch)
+- `EmployeeID` - Matched employee ID
+- `EmployeeName` - Employee's full name
 
-### Queues
-- **EmployeeBooking_Authenticated**: Priority 1 queue for authenticated employees
-- **EmployeeBooking_Unknown**: Priority 2 queue for unknown callers (default outbound queue)
+**Logic:**
+1. Query by PhoneNumber (GSI) or EmployeeID
+2. If no match → Return UNKNOWN
+3. If match found:
+   - No PIN provided → Return PIN_REQUIRED
+   - PIN correct → Return AUTHENTICATED
+   - PIN incorrect → Return INCORRECT_PIN
 
-### Routing Profile
-- **Name**: `EmployeeBooking_Default`
-- **Channels**: Voice only
-- **Queue Priority**: Authenticated (1) → Unknown (2)
+### Test Events
 
-### User
-- **Name**: Peleke Ngaih
-- **Username/Login**: pelekengaih
-- **Email**: pelekengaih@gmail.com
-- **Security Profile**: Agent
-- **After Call Work**: 5 seconds
+Located in `terraform/modules/lambda-function/test-events/`:
 
-## CI/CD with GitHub Actions
+1. **test-event-phone-pin-correct.json** - Phone lookup with correct PIN
+2. **test-event-phone-pin-incorrect.json** - Phone lookup with wrong PIN
+3. **test-event-phone-nopin.json** - Phone lookup without PIN
+4. **test-event-employee-id-pin-correct.json** - Employee ID with correct PIN
+5. **test-event-no-match.json** - Unknown employee/phone
 
-The project includes a GitHub Actions workflow for automated Terraform deployment. See `.github/workflows/terraform.yml` for details.
+## Deployment
 
-### Required GitHub Secrets
-- `AWS_ROLE_ARN`: IAM role for GitHub Actions (OIDC)
-- `TF_STATE_BUCKET`: S3 bucket for Terraform state
-- `CONNECT_INSTANCE_ID`: Amazon Connect instance ID
-- `INSTANCE_PHONE_NUMBER_ID`: Phone number ID/ARN
-- `USER_PASSWORD`: User password
+### 1. Deploy Infrastructure
 
-## Documentation
+```bash
+git checkout Dynamic-Contact-Flow
+cd terraform
+terraform init -backend-config=backend.hcl
+terraform apply
+```
 
-For detailed Terraform documentation, see [terraform/README.md](terraform/README.md).
+**New Resources Created:**
+- IAM role and policy for Lambda
+- DynamoDB Employee table with sample item
+- Lambda function with deployment package
 
-## Contributing
+### 2. Import Contact Flows and Lex Bot
 
-1. Create a feature branch
-2. Make your changes
-3. Submit a pull request
-4. The GitHub Actions workflow will run `terraform plan` and comment on the PR
+Same as previous branches (manual import via Console).
 
-## License
+### 3. Test Lambda Function
 
-This project is provided as-is for use with Amazon Connect.
+**Via AWS Console:**
+1. Go to Lambda Console > EmployeeBooking_DBLookup
+2. Test tab > Configure test event
+3. Use one of the test events from `test-events/` folder
+4. Click **Test**
+5. Verify return values
+
+**Via AWS CLI:**
+```bash
+aws lambda invoke \
+  --function-name EmployeeBooking_DBLookup \
+  --payload file://terraform/modules/lambda-function/test-events/test-event-phone-pin-correct.json \
+  --region us-east-1 \
+  output.json
+
+cat output.json
+```
+
+**Expected Output (Authenticated):**
+```json
+{
+  "EmployeeType": 1,
+  "EmployeeID": "101",
+  "EmployeeName": "Peleke Ngaih"
+}
+```
+
+### 4. Integrate with Contact Flow
+
+**Update Contact Flow to use Lambda:**
+
+1. Open contact flow in Amazon Connect Console
+2. Add **Invoke AWS Lambda function** block
+3. Select function: **EmployeeBooking_DBLookup**
+4. Set function parameters:
+   - `PhoneNumber`: `$.CustomerEndpoint.Address`
+5. Add **Check contact attributes** block
+6. Branch on `EmployeeType`:
+   - `1` (AUTHENTICATED) → Transfer to Authenticated queue
+   - `2` (PIN_REQUIRED) → Prompt for PIN, re-invoke Lambda
+   - `0` or `3` → Transfer to Unknown queue
+
+**Flow Logic:**
+```
+Entry
+  │
+  ├─► Get customer phone number
+  ├─► Invoke Lambda (phone lookup)
+  │   │
+  │   ├─► EmployeeType = 1 (AUTHENTICATED)
+  │   │   └─► Set queue: Authenticated
+  │   │
+  │   ├─► EmployeeType = 2 (PIN_REQUIRED)
+  │   │   ├─► Prompt for PIN
+  │   │   ├─► Invoke Lambda (with PIN)
+  │   │   ├─► If correct → Authenticated queue
+  │   │   └─► If incorrect → Unknown queue
+  │   │
+  │   └─► EmployeeType = 0 or 3
+  │       └─► Set queue: Unknown
+  │
+  └─► Transfer to queue
+```
+
+## Variables
+
+New variables in `terraform/variables.tf`:
+
+```hcl
+# DynamoDB Sample Employee
+variable "sample_employee_id" {
+  default = "101"
+}
+
+variable "sample_employee_pin" {
+  default = "111"
+}
+
+variable "sample_employee_email" {
+  default = "pelekengaih@gmail.com"
+}
+
+variable "sample_employee_name" {
+  default = "Peleke Ngaih"
+}
+
+variable "sample_employee_phone_number" {
+  default = "+18285282177"
+}
+```
+
+## CI/CD Updates
+
+GitHub Actions workflow now creates Lambda zip file:
+
+```yaml
+- name: Create Lambda Deployment Package
+  run: |
+    cd terraform/modules/lambda-function
+    python -m zipfile -c lambda_function.zip lambda_function.py
+```
+
+**Note:** Zip file is created dynamically, not committed to repo.
+
+## Outputs
+
+New Terraform outputs:
+
+| Output | Description |
+|--------|-------------|
+| `lambda_role_arn` | Lambda execution role ARN |
+| `employee_table_name` | DynamoDB table name |
+| `employee_table_arn` | DynamoDB table ARN |
+| `lambda_function_name` | Lambda function name |
+| `lambda_function_arn` | Lambda function ARN |
+
+## Troubleshooting
+
+**Lambda can't access DynamoDB:**
+- Verify IAM role has DynamoDB permissions
+- Check table name is "Employee"
+- Verify region is us-east-1
+
+**Employee lookup returns UNKNOWN:**
+- Verify sample item exists in DynamoDB table
+- Check phone number format matches exactly (include +1)
+- Review Lambda CloudWatch logs
+
+**PIN validation fails:**
+- Ensure PIN is passed as string, not number
+- Check EmployeePIN in DynamoDB matches
+- Test with correct PIN: "111"
+
+**Lambda deployment package missing:**
+- GitHub Actions creates zip automatically
+- For local: `cd terraform/modules/lambda-function && python -m zipfile -c lambda_function.zip lambda_function.py`
+
+## Testing Scenarios
+
+| Scenario | Input | Expected EmployeeType |
+|----------|-------|----------------------|
+| Known phone, correct PIN | Phone: +18285282177, PIN: 111 | 1 (AUTHENTICATED) |
+| Known phone, wrong PIN | Phone: +18285282177, PIN: 999 | 3 (INCORRECT_PIN) |
+| Known phone, no PIN | Phone: +18285282177 | 2 (PIN_REQUIRED) |
+| Unknown phone | Phone: +15555551234 | 0 (UNKNOWN) |
+| Known employee ID, correct PIN | ID: 101, PIN: 111 | 1 (AUTHENTICATED) |
+
+## Differences from Previous Branch
+
+| Feature | Amazon-Lex-Integration | Dynamic-Contact-Flow |
+|---------|----------------------|---------------------|
+| Lambda Functions | ❌ | ✅ DBLookup |
+| DynamoDB | ❌ | ✅ Employee table |
+| Employee Auth | ❌ | ✅ Phone/PIN validation |
+| Dynamic Routing | ❌ | ✅ Based on employee type |
+
+## Next Steps
+
+Next branches add:
+1. Lex Lambda integration (validation, fulfillment)
+2. Hotel booking DynamoDB table
+3. SES email confirmations
+4. Serverless CCP (S3/CloudFront)
+
+## Clean Up
+
+```bash
+terraform destroy
+```
+
+**Note:** Also manually delete:
+- Lex bot
+- Contact flows
+- CloudWatch log groups
+
+## Support
+
+- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+- [Amazon Connect Docs](https://docs.aws.amazon.com/connect/)
+- [AWS Lambda Python](https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html)
+- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
